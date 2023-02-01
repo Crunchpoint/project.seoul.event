@@ -152,6 +152,7 @@ html {
           font-size: 0.75em;
         }
         button {
+          cursor: pointer;
           border: 1px solid rgba(164, 164, 164);
         }
         @each $i, $name in $mainIconUrl {
@@ -328,6 +329,7 @@ html {
         background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) no-repeat center center;
         display: block;
         flex-direction: column;
+        cursor: pointer;
         &::-webkit-inner-spin-button,
         &::-webkit-calendar-picker-indicator {
           opacity: 0;
@@ -359,6 +361,7 @@ html {
             border: none;
             background-color: rgba(164, 164, 164, 0.2);
             padding: 5px 10px;
+            cursor: pointer;
             &.selected {
               background-color: #ffb3b3;
             }
@@ -383,6 +386,7 @@ html {
         font-weight: 600;
       }
       #search-by-place {
+        cursor: pointer;
         width: 20%;
         height: 70%;
         border-radius: 15px;
