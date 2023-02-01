@@ -11,7 +11,7 @@ const Main = () => {
           <h1 className="logo">
             <figure>
               <Link to="/">
-                <img src="assets/images/logo4.png" alt="#" />
+                <img src="/assets/images/logo4.png" alt="#" />
               </Link>
             </figure>
           </h1>
