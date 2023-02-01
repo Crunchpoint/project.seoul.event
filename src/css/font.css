@@ -1,0 +1,28 @@
+@font-face {
+  font-family: "SF-Pro";
+  src: url("../fonts/SF-Pro.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SF-Pro-Display";
+  src: url("../fonts/SF-Pro-Display-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SF-Pro-Text";
+  src: url("../fonts/SF-Pro-Text-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SF-Pro-Rounded";
+  src: url("../fonts/SF-Pro-Rounded-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
