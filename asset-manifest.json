@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/06.project_event_info/static/css/main.5ed0eedc.css",
-    "main.js": "/06.project_event_info/static/js/main.a6f33cf5.js",
-    "static/js/787.b852f3aa.chunk.js": "/06.project_event_info/static/js/787.b852f3aa.chunk.js",
-    "static/media/SF-Pro.woff2": "/06.project_event_info/static/media/SF-Pro.b4e45f163f4320d41a2c.woff2",
-    "static/media/SF-Pro-Rounded-Regular.woff2": "/06.project_event_info/static/media/SF-Pro-Rounded-Regular.fb6147643cde7ca29445.woff2",
-    "static/media/SF-Pro-Text-Regular.woff2": "/06.project_event_info/static/media/SF-Pro-Text-Regular.7aa76529abba0d34ccf6.woff2",
-    "static/media/SF-Pro-Display-Regular.woff2": "/06.project_event_info/static/media/SF-Pro-Display-Regular.babbf79486797244b959.woff2",
-    "static/media/spritesheet.png": "/06.project_event_info/static/media/spritesheet.8fd37de9c51146287d43.png",
-    "index.html": "/06.project_event_info/index.html",
-    "main.5ed0eedc.css.map": "/06.project_event_info/static/css/main.5ed0eedc.css.map",
-    "main.a6f33cf5.js.map": "/06.project_event_info/static/js/main.a6f33cf5.js.map",
-    "787.b852f3aa.chunk.js.map": "/06.project_event_info/static/js/787.b852f3aa.chunk.js.map"
+    "main.css": "/06.project_event_info/index/static/css/main.ac334178.css",
+    "main.js": "/06.project_event_info/index/static/js/main.9e6eb0ed.js",
+    "static/js/787.b852f3aa.chunk.js": "/06.project_event_info/index/static/js/787.b852f3aa.chunk.js",
+    "static/media/SF-Pro.woff2": "/06.project_event_info/index/static/media/SF-Pro.b4e45f163f4320d41a2c.woff2",
+    "static/media/SF-Pro-Rounded-Regular.woff2": "/06.project_event_info/index/static/media/SF-Pro-Rounded-Regular.fb6147643cde7ca29445.woff2",
+    "static/media/SF-Pro-Text-Regular.woff2": "/06.project_event_info/index/static/media/SF-Pro-Text-Regular.7aa76529abba0d34ccf6.woff2",
+    "static/media/SF-Pro-Display-Regular.woff2": "/06.project_event_info/index/static/media/SF-Pro-Display-Regular.babbf79486797244b959.woff2",
+    "static/media/spritesheet.png": "/06.project_event_info/index/static/media/spritesheet.8fd37de9c51146287d43.png",
+    "index.html": "/06.project_event_info/index/index.html",
+    "main.ac334178.css.map": "/06.project_event_info/index/static/css/main.ac334178.css.map",
+    "main.9e6eb0ed.js.map": "/06.project_event_info/index/static/js/main.9e6eb0ed.js.map",
+    "787.b852f3aa.chunk.js.map": "/06.project_event_info/index/static/js/787.b852f3aa.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5ed0eedc.css",
-    "static/js/main.a6f33cf5.js"
+    "static/css/main.ac334178.css",
+    "static/js/main.9e6eb0ed.js"
   ]
 }
