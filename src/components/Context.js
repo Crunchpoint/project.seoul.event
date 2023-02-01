@@ -2,10 +2,10 @@ import React, { createContext, useEffect, useReducer, useRef, useState } from "r
 import { throttle } from "lodash";
 import axios from "axios";
 
-const dataUrl = "http://openapi.seoul.go.kr:8088/54476354466d796338306f6b524278/json/culturalEventInfo/1/1000/";
-const dataUrl2 = "http://openapi.seoul.go.kr:8088/54476354466d796338306f6b524278/json/culturalEventInfo/1001/2000/";
-const dataUrl3 = "http://openapi.seoul.go.kr:8088/54476354466d796338306f6b524278/json/culturalEventInfo/2001/3000/";
-const dataUrl4 = "http://openapi.seoul.go.kr:8088/54476354466d796338306f6b524278/json/culturalEventInfo/3001/3500/";
+const dataUrl = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/1/1000/`;
+const dataUrl2 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/1001/2000/`;
+const dataUrl3 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/2001/3000/`;
+const dataUrl4 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/3001/3500/`;
 const dataUrl5 = "./assets/json/PlaceUrl.json";
 
 const infoFn = (state, action) => {

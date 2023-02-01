@@ -445,9 +445,9 @@ html {
     width: 100%;
     height: 100%;
     #map {
-      width: 100%;
-      height: 90vh;
       position: relative;
+      width: 100%;
+      height: 83vh;
     }
     #category {
       position: absolute;
@@ -576,9 +576,9 @@ html {
       }
     }
     #loc-btn {
-      position: fixed;
-      bottom: 10vh;
-      right: 10px;
+      position: absolute;
+      bottom: 5vh;
+      right: 3vw;
       z-index: 2;
       width: 50px;
       height: 50px;

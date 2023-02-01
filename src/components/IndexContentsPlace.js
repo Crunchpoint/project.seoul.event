@@ -6,7 +6,7 @@ import "swiper/scss";
 
 const IndexContentsPlace = () => {
   const { guNames, placePic, dispatch, setOptionValue } = useContext(MyContext);
-
+  // console.log(placePic);
   return placePic.length > 0 ? (
     <div className="place-links">
       <h2>장소별</h2>

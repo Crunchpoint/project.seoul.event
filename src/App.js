@@ -10,7 +10,7 @@ import "./css/_App.scss";
 function App() {
   return (
     <Context>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Header />
         <main className="main-container">
           <Routes>

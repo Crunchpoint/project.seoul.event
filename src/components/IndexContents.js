@@ -47,7 +47,7 @@ const IndexContents = () => {
             clickable: true,
           }}
           className="mySwiper">
-          {data.slice(0, 10).map((obj, key) => {
+          {data.slice(0, 5).map((obj, key) => {
             return (
               <SwiperSlide key={key}>
                 <a href={data[ranNum[key]]?.ORG_LINK}>
