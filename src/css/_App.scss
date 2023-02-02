@@ -15,12 +15,12 @@ $mainIconUrl: (
   1: "../../public/assets/images/ico_exhibition.png",
   2: "../../public/assets/images/ico_concert.png",
   3: "../../public/assets/images/ico_musical.png",
-  4: "../../public/assets/images/ico_theater.png",
-  5: "../../public/assets/images/ico_education.png",
-  6: "../../public/assets/images/ico_classic.png",
-  7: "../../public/assets/images/ico_k-music.png",
-  8: "../../public/assets/images/ico_festival.png",
-  9: "../../public/assets/images/ico_dance.png",
+  4: "../../public/assets/images/ico_k-music.png",
+  5: "../../public/assets/images/ico_theater.png",
+  6: "../../public/assets/images/ico_education.png",
+  7: "../../public/assets/images/ico_dance.png",
+  8: "../../public/assets/images/ico_classic.png",
+  9: "../../public/assets/images/ico_festival.png",
   10: "../../public/assets/images/ico_instrument.png",
   11: "../../public/assets/images/ico_movies.png",
   12: "../../public/assets/images/ico_etc.png",
@@ -154,6 +154,9 @@ html {
         button {
           cursor: pointer;
           border: 1px solid rgba(164, 164, 164);
+          p {
+            display: none;
+          }
         }
         @each $i, $name in $mainIconUrl {
           &:nth-child(#{$i}) button {
@@ -451,7 +454,7 @@ html {
     #map {
       position: relative;
       width: 100%;
-      height: 83vh;
+      height: 80vh;
     }
     #category {
       position: absolute;
@@ -593,8 +596,8 @@ html {
       display: flex;
       justify-content: center;
       align-items: center;
-      cursor: pointer;
       #btn-loc {
+        cursor: pointer;
         width: 40px;
         height: 40px;
         border: 0;

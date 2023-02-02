@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
 import { MyContext } from "./Context";
 import { Swiper, SwiperSlide } from "swiper/react";
+import CateBtn from "./CateBtn";
 import "swiper/scss";
 
 const SearchCate = () => {
-  const { dispatch, codeNames, selected, setSelected, sortedData } = useContext(MyContext);
+  const { dispatch, codeNames, selected, setSelected, handleCateBtn, cateBtnRef } = useContext(MyContext);
   const filteredCodeNames = [];
-
+  // console.log(cateBtnRef.current);
+  // console.log("cateBtnRef: ", cateBtnRef.current);
   let nameStorage = codeNames?.map((obj, key) => {
     return obj.split("/")[0];
   });
   filteredCodeNames.push(nameStorage);
-
   return (
     <div className="search-cate">
       <Swiper modules={[]} spaceBetween={10} slidesPerView={"6"} centeredSlides={false} className="mySwiper">
@@ -28,15 +29,7 @@ const SearchCate = () => {
         {filteredCodeNames[0]?.map((obj, key) => {
           return (
             <SwiperSlide key={key}>
-              <button
-                value={sortedData.category}
-                className={selected === obj ? "selected" : ""}
-                onClick={(e) => {
-                  dispatch({ type: "SET_CATEGORY", payload: obj });
-                  setSelected(obj);
-                }}>
-                {obj}
-              </button>
+              <CateBtn idx={key} obj={obj} />
             </SwiperSlide>
           );
         })}

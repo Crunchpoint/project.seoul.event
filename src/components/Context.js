@@ -49,6 +49,7 @@ const Context = ({ children }) => {
   const elSearchBar = useRef();
   const elCalendar = useRef();
   const lastDataRef = useRef(null);
+  const cateBtnRef = useRef([]);
   const codeName = new Set([]);
   const guName = new Set([]);
   const eventDate = new Set([]);
@@ -133,11 +134,27 @@ const Context = ({ children }) => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [data]);
+  // 현재 위치
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function (position) {
       setLatLon([position.coords.latitude, position.coords.longitude]);
     });
   }, []);
+  // 스크롤 이동
+  const scrollIntoView = (el) => {
+    // console.log("el: ", el);
+    return el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+  };
+
+  const handleCateBtn = (e, key, obj, dispatch, setSelected) => {
+    console.log(e);
+    dispatch({ type: "SET_CATEGORY", payload: obj });
+    setSelected(obj);
+    setTimeout(() => {
+      scrollIntoView(cateBtnRef.current[key]);
+    }, 10);
+  };
+
   return (
     <MyContext.Provider
       value={{
@@ -180,6 +197,9 @@ const Context = ({ children }) => {
         searchedData,
         setSearchedData,
         latLon,
+        scrollIntoView,
+        handleCateBtn,
+        cateBtnRef,
       }}>
       {children}
     </MyContext.Provider>

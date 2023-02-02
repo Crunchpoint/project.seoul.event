@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "./Context";
+import CateBtn from "./CateBtn";
 
 const IndexContentsItems = () => {
-  const { codeNames, dispatch, setSelected } = useContext(MyContext);
+  const { codeNames, dispatch, setSelected, cateBtnRef, scrollIntoView } = useContext(MyContext);
   const filteredCodeNames = [];
   let nameStorage = codeNames?.map((obj, key) => {
     return obj.split("/")[0];
@@ -15,13 +16,8 @@ const IndexContentsItems = () => {
       {filteredCodeNames[0]?.map((obj, key) => {
         return (
           <figure key={key}>
-            <Link
-              to="/search"
-              onClick={() => {
-                dispatch({ type: "SET_CATEGORY", payload: obj });
-                setSelected(obj);
-              }}>
-              <button></button>
+            <Link to="/search">
+              <CateBtn idx={key} obj={obj} />
               <figcaption>{obj}</figcaption>
             </Link>
           </figure>
