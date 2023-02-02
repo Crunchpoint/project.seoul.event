@@ -379,14 +379,27 @@ html {
       margin-bottom: 15px;
       text-align: center;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-around;
       align-items: center;
       padding-right: 15px;
-      .selected-date {
+      .reset-btn {
+        width: 20%;
+        height: 70%;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        cursor: pointer;
+        border: none;
         margin-right: 15px;
+        color: rgb(42, 42, 42);
+      }
+      .selected-date {
         font-size: 0.725em;
-        color: red;
+        color: #000;
         font-weight: 600;
+        // transition: steps(1) 0.25s ease-in-out;
       }
       #search-by-place {
         cursor: pointer;
@@ -602,6 +615,26 @@ html {
         height: 40px;
         border: 0;
         background: url("../../public/assets/images/myLoc.png") no-repeat center/cover;
+      }
+    }
+  }
+  .recommends {
+    width: 100%;
+    div {
+      width: 100%;
+      a {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 100%;
+          margin: 0 15px;
+          height: 40vh;
+          object-fit: cover;
+          margin-bottom: 15px;
+          border-radius: 15px;
+        }
       }
     }
   }

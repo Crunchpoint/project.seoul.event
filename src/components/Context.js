@@ -42,7 +42,7 @@ const Context = ({ children }) => {
   const [scrollTop, setScrollTop] = useState(0);
   const [selected, setSelected] = useState("전체");
   const [activeTab, setActiveTab] = useState("");
-  const [optionValue, setOptionValue] = useState("");
+  const [optionValue, setOptionValue] = useState("전체지역");
   const [limit, setLimit] = useState(10);
   const [defaultCal, setDefaultCal] = useState(today.toISOString().substr(0, 10));
   const [latLon, setLatLon] = useState([]);
@@ -50,6 +50,7 @@ const Context = ({ children }) => {
   const elCalendar = useRef();
   const lastDataRef = useRef(null);
   const cateBtnRef = useRef([]);
+  const swiperRef = useRef(null);
   const codeName = new Set([]);
   const guName = new Set([]);
   const eventDate = new Set([]);
@@ -79,7 +80,7 @@ const Context = ({ children }) => {
             setFilteredData(filteredData);
             // 구네임 데이터
             res1.data.culturalEventInfo.row.map((obj) => {
-              return guName.add(obj.GUNAME);
+              return guName.add("전체지역").add(obj.GUNAME);
             });
             // 구네임 필터링
             let filteredGuNames = [...guName].filter((obj) => {
@@ -88,12 +89,12 @@ const Context = ({ children }) => {
             setGuNames([...filteredGuNames]);
             // 코드네임 데이터
             res1.data.culturalEventInfo.row.map((obj) => {
-              return codeName.add(obj.CODENAME.split("-")[0]);
+              return codeName.add("전체").add(obj.CODENAME.split("-")[0]);
             });
             // 코드네임 카테고리 위치 변경
             let copy = [...codeName];
-            let replaceCate = copy.splice(1, 1);
-            copy.splice(11, 0, replaceCate[0]);
+            let replaceCate = copy.splice(2, 1);
+            copy.splice(12, 0, replaceCate[0]);
             setCodenames(copy);
             // 이벤트 날짜 데이터
             res1.data.culturalEventInfo.row.map((obj) => {
@@ -140,20 +141,26 @@ const Context = ({ children }) => {
       setLatLon([position.coords.latitude, position.coords.longitude]);
     });
   }, []);
-  // 스크롤 이동
-  const scrollIntoView = (el) => {
-    // console.log("el: ", el);
-    return el.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
-  };
-
+  // 카테고리 버튼 이벤트
   const handleCateBtn = (e, key, obj, dispatch, setSelected) => {
-    console.log(e);
-    dispatch({ type: "SET_CATEGORY", payload: obj });
+    obj === "전체" ? dispatch({ type: "SET_CATEGORY", payload: "" }) : dispatch({ type: "SET_CATEGORY", payload: obj });
     setSelected(obj);
     setTimeout(() => {
-      scrollIntoView(cateBtnRef.current[key]);
+      swiperRef.current.swiper.slideTo(key - 2, 300);
     }, 10);
   };
+  useEffect(() => {
+    const randomNum = [];
+    const usedIndex = new Set();
+    while (randomNum.length < 10 && data.length > 0) {
+      let randomIndex = Math.floor(Math.random() * data.length);
+      if (!usedIndex.has(randomIndex)) {
+        randomNum.push(randomIndex);
+        usedIndex.add(randomIndex);
+      }
+    }
+    setRanNum(randomNum);
+  }, [setRanNum, data]);
 
   return (
     <MyContext.Provider
@@ -197,9 +204,9 @@ const Context = ({ children }) => {
         searchedData,
         setSearchedData,
         latLon,
-        scrollIntoView,
         handleCateBtn,
         cateBtnRef,
+        swiperRef,
       }}>
       {children}
     </MyContext.Provider>

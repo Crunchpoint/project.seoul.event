@@ -6,7 +6,7 @@ import "swiper/scss";
 
 const IndexContentsPlace = () => {
   const { guNames, placePic, dispatch, setOptionValue } = useContext(MyContext);
-  // console.log(placePic);
+
   return placePic.length > 0 ? (
     <div className="place-links">
       <h2>장소별</h2>
@@ -15,14 +15,15 @@ const IndexContentsPlace = () => {
           return (
             <SwiperSlide key={key}>
               <figure>
-                <Link
-                  to="/search"
-                  onClick={() => {
-                    dispatch({ type: "SET_PLACE", payload: obj });
-                    setOptionValue(obj);
-                  }}>
+                <Link to="/search">
                   <img src={placePic[key].url} alt="" />
-                  <figcaption>{obj}</figcaption>
+                  <figcaption
+                    onClick={(e) => {
+                      obj === "전체지역" ? dispatch({ type: "SET_PLACE", payload: "" }) : dispatch({ type: "SET_PLACE", payload: obj });
+                      setOptionValue(obj);
+                    }}>
+                    {obj}
+                  </figcaption>
                 </Link>
               </figure>
             </SwiperSlide>

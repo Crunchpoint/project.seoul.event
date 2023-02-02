@@ -4,12 +4,13 @@ import { MyContext } from "./Context";
 import CateBtn from "./CateBtn";
 
 const IndexContentsItems = () => {
-  const { codeNames, dispatch, setSelected, cateBtnRef, scrollIntoView } = useContext(MyContext);
+  const { codeNames } = useContext(MyContext);
   const filteredCodeNames = [];
   let nameStorage = codeNames?.map((obj, key) => {
     return obj.split("/")[0];
   });
   filteredCodeNames.push(nameStorage);
+  filteredCodeNames[0].splice(0, 1);
 
   return (
     <div className="info-links">

@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import IndexContentsItems from "./IndexContentsItems";
 import IndexContentsPlace from "./IndexContentsPlace";
 import IndexContentsDate from "./IndexContentsDate";
+import IndexContentsSub from "./IndexContentsSub";
 import { MyContext } from "./Context";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,20 +12,8 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 
 const IndexContents = () => {
-  const { data, ranNum, setRanNum } = useContext(MyContext);
+  const { data, ranNum } = useContext(MyContext);
 
-  useEffect(() => {
-    const randomNum = [];
-    const usedIndex = new Set();
-    while (randomNum.length < 10 && data.length > 0) {
-      let randomIndex = Math.floor(Math.random() * data.length);
-      if (!usedIndex.has(randomIndex)) {
-        randomNum.push(randomIndex);
-        usedIndex.add(randomIndex);
-      }
-    }
-    setRanNum(randomNum);
-  }, [setRanNum, data]);
   // run this code only once when the component is mounted
   return data?.length > 0 && ranNum?.length > 0 ? (
     <>
@@ -50,9 +39,7 @@ const IndexContents = () => {
           {data.slice(0, 5).map((obj, key) => {
             return (
               <SwiperSlide key={key}>
-                <a href={data[ranNum[key]]?.ORG_LINK}>
-                  <img src={data[ranNum[key]]?.MAIN_IMG} alt="#" />
-                </a>
+                <IndexContentsSub idx={key} />
               </SwiperSlide>
             );
           })}
