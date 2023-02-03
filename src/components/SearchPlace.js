@@ -2,27 +2,15 @@ import React, { useContext } from "react";
 import { MyContext } from "./Context";
 
 const SearchPlace = () => {
-  const { guNames, dispatch, selectedDate, elCalendar, optionValue, setSelected, setOptionValue, defaultCal, swiperRef, setSelectedDate, daysOfWeek, today } = useContext(MyContext);
+  const { guNames, dispatch, selectedDate, elCalendar, optionValue, defaultCal, setOptionValue, daysOfWeek, setSelectedDate } = useContext(MyContext);
 
+  const handleDateChange = (event) => {
+    let date = new Date(event.target.value);
+    let dayOfWeek = daysOfWeek[date.getDay()];
+    setSelectedDate(dayOfWeek);
+  };
   return (
     <div className="search-place">
-      <button
-        className="reset-btn"
-        onClick={(e) => {
-          swiperRef.current.swiper.slideTo(0);
-          dispatch({ type: "SET_CATEGORY", payload: "" });
-          dispatch({ type: "SET_DATE", payload: defaultCal });
-          dispatch({ type: "SET_PLACE", payload: "" });
-          elCalendar.current.value = defaultCal;
-          setSelectedDate(daysOfWeek[today.getDay()]);
-          setSelected("전체");
-          setOptionValue("전체지역");
-        }}>
-        clear
-      </button>
-      <div className="selected-date">
-        {elCalendar.current?.value}&nbsp;{selectedDate}
-      </div>
       <select
         name="place"
         id="search-by-place"
@@ -39,6 +27,18 @@ const SearchPlace = () => {
           );
         })}
       </select>
+      <div className="selected-date">
+        {elCalendar.current?.value}&nbsp;{selectedDate}
+      </div>
+      <input
+        ref={elCalendar}
+        defaultValue={defaultCal}
+        onChange={(e) => {
+          dispatch({ type: "SET_DATE", payload: e.target.value });
+          handleDateChange(e);
+        }}
+        type="date"
+      />
     </div>
   );
 };

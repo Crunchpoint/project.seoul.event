@@ -51,6 +51,7 @@ const Context = ({ children }) => {
   const lastDataRef = useRef(null);
   const cateBtnRef = useRef([]);
   const swiperRef = useRef(null);
+  const relatedRef = useRef([]);
   const codeName = new Set([]);
   const guName = new Set([]);
   const eventDate = new Set([]);
@@ -62,6 +63,7 @@ const Context = ({ children }) => {
     date: defaultCal,
     place: "",
   });
+
   // axios 데이터 (최초 한번만 실행)
   useEffect(() => {
     async function axiosData() {
@@ -207,6 +209,7 @@ const Context = ({ children }) => {
         handleCateBtn,
         cateBtnRef,
         swiperRef,
+        relatedRef,
       }}>
       {children}
     </MyContext.Provider>

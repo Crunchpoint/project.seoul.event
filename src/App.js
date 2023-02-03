@@ -21,6 +21,7 @@ function App() {
             <Route path="/map" element={<Map />} />
             <Route path="/recommends" element={<Recommends />} />
             <Route path="/account" element={<Account />} />
+            {/* <Route path="*" element={<IndexContents />} /> */}
           </Routes>
         </main>
         <Footer />

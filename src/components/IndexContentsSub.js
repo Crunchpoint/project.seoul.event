@@ -5,7 +5,7 @@ const IndexContentsSub = ({ idx }) => {
   const { data, ranNum } = useContext(MyContext);
 
   return data?.length > 0 && ranNum?.length > 0 ? (
-    <a href={data[ranNum[idx]]?.ORG_LINK}>
+    <a href={data[ranNum[idx]]?.ORG_LINK} target="_blank" rel="noreferrer">
       <img src={data[ranNum[idx]]?.MAIN_IMG} alt="#" />
     </a>
   ) : null;

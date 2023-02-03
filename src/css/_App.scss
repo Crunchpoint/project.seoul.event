@@ -25,11 +25,14 @@ $mainIconUrl: (
   11: "../../public/assets/images/ico_movies.png",
   12: "../../public/assets/images/ico_etc.png",
 );
-
 html {
-  max-width: 768px;
-  margin: 0 auto;
   scroll-behavior: smooth;
+}
+body {
+  max-width: 480px;
+  border-right: 1px solid #ddd;
+  border-left: 1px solid #ddd;
+  margin: 0 auto;
 }
 // header css
 .header {
@@ -148,6 +151,7 @@ html {
         width: 16.66%;
         margin-bottom: 15px;
         figcaption {
+          font-weight: 600;
           margin-top: 5px;
           font-size: 0.75em;
         }
@@ -251,7 +255,7 @@ html {
             width: 100%;
             height: 100%;
             p {
-              font-weight: 500;
+              font-weight: 600;
               &.colorBlue {
                 color: blue;
               }
@@ -282,10 +286,14 @@ html {
   }
   // search css
   .search-list {
+    position: relative;
+    width: 100%;
+    height: 100%;
     .to-top {
       position: fixed;
-      bottom: 10%;
-      right: 10px;
+      top: 85vh;
+      right: 50vw;
+      transform: translateX(50%);
       width: 35px;
       height: 35px;
       border-radius: 50%;
@@ -311,38 +319,59 @@ html {
       display: flex;
       justify-content: space-evenly;
       input {
-        width: 70%;
         height: 30px;
         border: 1px solid rgba(164, 164, 164, 0.5);
         border-radius: 15px;
         padding: 0 10px;
         text-align: center;
       }
-      button {
-        width: 10%;
-        height: 30px;
-        border: 1px solid rgba(164, 164, 164, 0.5);
-        border-radius: 10px;
-        background-color: #fff;
-        font-size: 0.75em;
+      div {
+        width: 70%;
+        input {
+          width: 100%;
+        }
+        .list-wrapper {
+          height: 20vh;
+          position: absolute;
+          overflow: scroll;
+          ul {
+            z-index: 2;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: none;
+            border-left: 1px solid rgba(164, 164, 164, 0.5);
+            border-right: 1px solid rgba(164, 164, 164, 0.5);
+            &.active {
+              display: block;
+            }
+            li {
+              margin: 0;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              text-align-last: left;
+              font-size: 0.85em;
+              padding: 10px 5px;
+              border-bottom: 1px solid rgba(164, 164, 164, 0.5);
+              &.active {
+                background-color: #ffb3b3;
+              }
+            }
+          }
+        }
       }
-      input[type="date"] {
-        width: 10%;
-        color: rgba(0, 0, 0, 0);
-        background: url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) no-repeat center center;
-        display: block;
-        flex-direction: column;
+      .reset-btn {
+        width: 15%;
+        height: 30px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
         cursor: pointer;
-        &::-webkit-inner-spin-button,
-        &::-webkit-calendar-picker-indicator {
-          opacity: 0;
-        }
-        &::-webkit-datetime-edit-text,
-        &::-webkit-datetime-edit-month-field,
-        &::-webkit-datetime-edit-day-field,
-        &::-webkit-datetime-edit-year-field {
-          display: none;
-        }
+        border: 1px solid rgba(164, 164, 164, 0.5);
+        margin-right: 15px;
+        color: rgb(42, 42, 42);
       }
     }
     .search-cate {
@@ -350,7 +379,7 @@ html {
         width: 100%;
         height: 100%;
         margin-bottom: 15px;
-        padding: 0 15px;
+        padding: 0 15px 0 15px;
         .swiper-slide {
           text-align: center;
           font-size: 1em;
@@ -374,29 +403,38 @@ html {
     }
     .search-place {
       width: 100%;
-      height: 30px;
+      height: 40px;
       background-color: rgba(164, 164, 164, 0.2);
       margin-bottom: 15px;
       text-align: center;
       display: flex;
       justify-content: space-around;
       align-items: center;
-      padding-right: 15px;
-      .reset-btn {
+      input[type="date"] {
         width: 20%;
-        height: 70%;
-        border-radius: 15px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fff;
-        cursor: pointer;
+        height: 30px;
         border: none;
-        margin-right: 15px;
-        color: rgb(42, 42, 42);
+        border-radius: 15px;
+        padding: 0 10px;
+        text-align: center;
+        color: rgba(0, 0, 0, 0);
+        background: white url(https://cdn3.iconfinder.com/data/icons/linecons-free-vector-icons-pack/32/calendar-16.png) no-repeat center center;
+        display: block;
+        flex-direction: column;
+        cursor: pointer;
+        &::-webkit-inner-spin-button,
+        &::-webkit-calendar-picker-indicator {
+          opacity: 0;
+        }
+        &::-webkit-datetime-edit-text,
+        &::-webkit-datetime-edit-month-field,
+        &::-webkit-datetime-edit-day-field,
+        &::-webkit-datetime-edit-year-field {
+          display: none;
+        }
       }
       .selected-date {
-        font-size: 0.725em;
+        font-size: 0.85em;
         color: #000;
         font-weight: 600;
         // transition: steps(1) 0.25s ease-in-out;
@@ -467,7 +505,7 @@ html {
     #map {
       position: relative;
       width: 100%;
-      height: 80vh;
+      height: 83vh;
     }
     #category {
       position: absolute;
@@ -653,7 +691,7 @@ html {
     background: white;
     .tab-bar-inner {
       position: relative;
-      max-width: 768px;
+      max-width: 478px;
       height: 100%;
       display: flex;
       justify-content: space-between;

@@ -28,15 +28,15 @@ const Search = () => {
       <button className={window.scrollY > 300 ? "to-top active" : "to-top"} onClick={() => window.scrollTo(0, 0)}>
         ⇧
       </button>
-      <SearchBar />
-      <SearchCate />
       <SearchPlace />
+      <SearchCate />
+      <SearchBar />
       <div className="sorted-list">
         {searchedData?.slice(0, limit).map((obj, key) => {
           return (
             <div key={key} className="main-list">
               <div className="list-wrapper">
-                <a href={obj.ORG_LINK}>
+                <a href={obj.ORG_LINK} target="_blank" rel="noreferrer">
                   <div className="list-image">
                     <img src={obj.MAIN_IMG} alt="" />
                   </div>
