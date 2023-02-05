@@ -27,7 +27,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://crunchpoint.github.io/06.project_event_info/",
+  "homepage": ".",
   "eslintConfig": {
     "extends": [
       "react-app",

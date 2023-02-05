@@ -21,7 +21,6 @@ function App() {
             <Route path="/culturalspc" element={<CalturalSpc />} />
             <Route path="/map" element={<Map />} />
             <Route path="/recommends" element={<Recommends />} />
-            {/* <Route path="*" element={<IndexContents />} /> */}
           </Routes>
         </main>
         <Footer />
