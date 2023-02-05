@@ -3,7 +3,7 @@ import { MyContext } from "./Context";
 import { Link, useLocation } from "react-router-dom";
 
 const Footer = () => {
-  const { dispatch, setSelected, activeTab, setActiveTab, setOptionValue, defaultCal, setSearch } = useContext(MyContext);
+  const { dispatch, setSelected, activeTab, setActiveTab, setOptionValue, defaultCal, setSearch, setExpanded } = useContext(MyContext);
   const pathName = useLocation().pathname;
 
   useEffect(() => {
@@ -16,6 +16,7 @@ const Footer = () => {
     }
     if (pathName === "/search" || pathName === "/culturalspc" || pathName === "/" || pathName === "/map" || pathName === "/recommends") {
       window.scrollTo({ top: 0, behavior: "smooth" });
+      setExpanded("");
     }
     if (pathName === "/search" || pathName === "/culturalspc") {
       setSearch("");

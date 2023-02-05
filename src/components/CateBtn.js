@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "./Context";
 
 const CateBtn = ({ idx, obj }) => {
-  const { dispatch, selected, setSelected, handleCateBtn, cateBtnRef } = useContext(MyContext);
+  const { dispatch, selected, setSelected, handleCateBtn, cateBtnRef, setExpanded } = useContext(MyContext);
 
   return (
     <button
@@ -10,6 +10,7 @@ const CateBtn = ({ idx, obj }) => {
       className={selected === obj ? "selected" : ""}
       onClick={(e) => {
         handleCateBtn(e.target, idx, obj, dispatch, setSelected);
+        setExpanded("");
       }}>
       <p>{obj}</p>
     </button>

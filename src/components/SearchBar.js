@@ -4,8 +4,23 @@ import { MyContext } from "./Context";
 import { useLocation } from "react-router-dom";
 
 const SearchBar = () => {
-  const { setSearch, elSearchBar, elCalendar, dispatch, setSelectedDate, daysOfWeek, defaultCal, setOptionValue, swiperRef, today, setSelected, relatedRef, searchedData, setRelatedSrcOn } =
-    useContext(MyContext);
+  const {
+    setSearch,
+    elSearchBar,
+    elCalendar,
+    dispatch,
+    setSelectedDate,
+    daysOfWeek,
+    defaultCal,
+    setOptionValue,
+    swiperRef,
+    today,
+    setSelected,
+    relatedRef,
+    searchedData,
+    setRelatedSrcOn,
+    setExpanded,
+  } = useContext(MyContext);
   let idx = 0;
   const pathName = useLocation().pathname;
   useEffect(() => {
@@ -33,6 +48,7 @@ const SearchBar = () => {
     setSelected("전체");
     setOptionValue("전체지역");
     setSearch("");
+    setExpanded("");
     swiperRef.current.swiper.slideTo(0);
     pathName === "/search" && (elCalendar.current.value = defaultCal);
     elSearchBar.current.value = "";
@@ -49,6 +65,7 @@ const SearchBar = () => {
           onChange={(e) => {
             setSearch(e.target.value);
             elSearchBar.current.placeholder = "검색어를 입력하세요";
+            setExpanded("");
           }}
           onKeyDown={(e) => handleRelated(e)}
           onFocus={(e) => setRelatedSrcOn(true)}

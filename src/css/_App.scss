@@ -802,7 +802,7 @@ body {
             transform: rotate(180deg);
           }
           &.active div {
-            transition: all 0.45s;
+            transition: all 1s;
             max-height: 100vh;
           }
           button {
@@ -824,7 +824,7 @@ body {
             text-align: left;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.15s;
+            transition: all 0.1s;
             p {
               margin-top: 10px;
               line-height: 1.4em;
