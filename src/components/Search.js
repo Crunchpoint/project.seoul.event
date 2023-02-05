@@ -3,9 +3,10 @@ import { MyContext } from "./Context";
 import SearchCate from "./SearchCate";
 import SearchBar from "./SearchBar";
 import SearchPlace from "./SearchPlace";
+import ToTopBtn from "./ToTopBtn";
 
 const Search = () => {
-  const { limit, setLimit, lastDataRef, searchedData } = useContext(MyContext);
+  const { limit, setLimit, lastDataRef, searchedData, codeNames } = useContext(MyContext);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -25,11 +26,9 @@ const Search = () => {
 
   return (
     <div className="search-list">
-      <button className={window.scrollY > 300 ? "to-top active" : "to-top"} onClick={() => window.scrollTo(0, 0)}>
-        ⇧
-      </button>
+      <ToTopBtn />
       <SearchPlace />
-      <SearchCate />
+      <SearchCate props={codeNames} />
       <SearchBar />
       <div className="sorted-list">
         {searchedData?.slice(0, limit).map((obj, key) => {

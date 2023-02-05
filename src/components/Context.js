@@ -5,8 +5,9 @@ import axios from "axios";
 const dataUrl = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/1/1000/`;
 const dataUrl2 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/1001/2000/`;
 const dataUrl3 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/2001/3000/`;
-const dataUrl4 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/3001/3500/`;
-const dataUrl5 = "./assets/json/PlaceUrl.json";
+const dataUrl4 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/3001/4000/`;
+const dataUrl5 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalSpaceInfo/1/1000/`;
+const dataUrl10 = "./assets/json/PlaceUrl.json";
 
 const infoFn = (state, action) => {
   switch (action.type) {
@@ -32,10 +33,15 @@ const Context = ({ children }) => {
   // eslint-disable-next-line no-unused-vars
   const storageData = JSON.parse(localStorage.getItem("storageData"));
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchedData, setSearchedData] = useState([]);
+  const [searchedData2, setSearchedData2] = useState([]);
+  const [recommendedData, setRecommendedData] = useState([]);
+  const [highResImg, setHighResImg] = useState([]);
   const [search, setSearch] = useState("");
   const [codeNames, setCodenames] = useState([]);
+  const [subjCodes, setSubjCodes] = useState([]);
   const [guNames, setGuNames] = useState([]);
   const [eventDates, setEventDates] = useState([]);
   const [placePic, setPlacePic] = useState([]);
@@ -44,15 +50,20 @@ const Context = ({ children }) => {
   const [activeTab, setActiveTab] = useState("");
   const [optionValue, setOptionValue] = useState("전체지역");
   const [limit, setLimit] = useState(10);
+  const [limit2, setLimit2] = useState(10);
   const [defaultCal, setDefaultCal] = useState(today.toISOString().substr(0, 10));
   const [latLon, setLatLon] = useState([]);
+  const [relatedSrcOn, setRelatedSrcOn] = useState(false);
+  const [expanded, setExpanded] = useState(null);
   const elSearchBar = useRef();
   const elCalendar = useRef();
   const lastDataRef = useRef(null);
+  const lastDataRef2 = useRef(null);
   const cateBtnRef = useRef([]);
   const swiperRef = useRef(null);
   const relatedRef = useRef([]);
   const codeName = new Set([]);
+  const subjCode = new Set([]);
   const guName = new Set([]);
   const eventDate = new Set([]);
   const daysOfWeek = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
@@ -63,23 +74,28 @@ const Context = ({ children }) => {
     date: defaultCal,
     place: "",
   });
-
   // axios 데이터 (최초 한번만 실행)
   useEffect(() => {
     async function axiosData() {
       await axios
-        .all([axios.get(dataUrl), axios.get(dataUrl2), axios.get(dataUrl3), axios.get(dataUrl4), axios.get(dataUrl5)])
+        .all([axios.get(dataUrl), axios.get(dataUrl2), axios.get(dataUrl3), axios.get(dataUrl4), axios.get(dataUrl5), axios.get(dataUrl10)])
         .then(
-          axios.spread((res1, res2, res3, res4, res5) => {
+          axios.spread((res1, res2, res3, res4, res5, res10) => {
             localStorage.setItem("storageData", JSON.stringify(res1));
             // 전체 데이터
             const combinedData = [...res1.data.culturalEventInfo.row, ...res2.data.culturalEventInfo.row, ...res3.data.culturalEventInfo.row, ...res4.data.culturalEventInfo.row];
             setData(combinedData);
-            // 필터링 데이터
+            // 필터링 데이터(오늘 날짜 이후의 데이터)
+            setData2(res5.data.culturalSpaceInfo.row);
             const filteredData = res1.data.culturalEventInfo.row.filter((obj) => {
               return obj.END_DATE > today.toJSON() && obj.STRTDATE < today.toJSON();
             });
             setFilteredData(filteredData);
+            // 이미지 데이터
+            const filtedImages = res1.data.culturalEventInfo.row.map((obj) => {
+              return obj.MAIN_IMG;
+            });
+            setRecommendedData(filtedImages);
             // 구네임 데이터
             res1.data.culturalEventInfo.row.map((obj) => {
               return guName.add("전체지역").add(obj.GUNAME);
@@ -95,16 +111,24 @@ const Context = ({ children }) => {
             });
             // 코드네임 카테고리 위치 변경
             let copy = [...codeName];
-            let replaceCate = copy.splice(2, 1);
+            let replaceCate = copy.splice(4, 1);
             copy.splice(12, 0, replaceCate[0]);
             setCodenames(copy);
+            // 코드네임2 데이터
+            res5.data.culturalSpaceInfo.row.map((obj) => {
+              return subjCode.add("전체").add(obj.SUBJCODE);
+            });
+            let copy2 = [...subjCode];
+            let replaceCate2 = copy2.splice(1, 1);
+            copy2.splice(7, 0, replaceCate2[0]);
+            setSubjCodes(copy2);
             // 이벤트 날짜 데이터
             res1.data.culturalEventInfo.row.map((obj) => {
               eventDate.add(obj.DATE);
               return setEventDates([...eventDate]);
             });
             // 장소 이미지 데이터
-            setPlacePic(res5.data.data);
+            setPlacePic(res10.data.data);
           })
         )
         .catch((error) => {
@@ -114,7 +138,7 @@ const Context = ({ children }) => {
     axiosData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // 다중 검색 필터링
+  // 다중 검색 필터링 for data1
   useEffect(() => {
     const filteredData = data.filter((item) => {
       let categoryMatched = sortedData.category === "" || item.CODENAME.includes(sortedData.category);
@@ -125,6 +149,16 @@ const Context = ({ children }) => {
     });
     setSearchedData(filteredData);
   }, [sortedData, search, data]);
+  // 다중 검색 필터링 for data2
+  useEffect(() => {
+    const filteredData2 = data2.filter((item) => {
+      let categoryMatched = sortedData.category === "" || item.SUBJCODE.includes(sortedData.category);
+      let placeMatched = sortedData.place === "" || item.ADDR.includes(sortedData.place);
+      let textMatched = item.FAC_NAME.toUpperCase().includes(search.toUpperCase());
+      return categoryMatched && placeMatched && textMatched;
+    });
+    setSearchedData2(filteredData2);
+  }, [sortedData, search, data2]);
   // 스크롤 이밴트
   useEffect(() => {
     const handleScroll = throttle((event) => {
@@ -145,33 +179,37 @@ const Context = ({ children }) => {
   }, []);
   // 카테고리 버튼 이벤트
   const handleCateBtn = (e, key, obj, dispatch, setSelected) => {
-    obj === "전체" ? dispatch({ type: "SET_CATEGORY", payload: "" }) : dispatch({ type: "SET_CATEGORY", payload: obj });
+    dispatch({ type: "SET_CATEGORY", payload: obj === "전체" ? "" : obj });
     setSelected(obj);
     setTimeout(() => {
-      swiperRef.current.swiper.slideTo(key - 2, 300);
+      swiperRef.current.swiper.slideTo(key - 1, 200);
     }, 10);
   };
+  // 랜덤 숫자 생성
   useEffect(() => {
     const randomNum = [];
     const usedIndex = new Set();
-    while (randomNum.length < 10 && data.length > 0) {
-      let randomIndex = Math.floor(Math.random() * data.length);
+    while (randomNum.length < 10 && filteredData.length > 0) {
+      let randomIndex = Math.floor(Math.random() * filteredData.length);
       if (!usedIndex.has(randomIndex)) {
         randomNum.push(randomIndex);
         usedIndex.add(randomIndex);
       }
     }
     setRanNum(randomNum);
-  }, [setRanNum, data]);
+  }, [setRanNum, filteredData]);
 
   return (
     <MyContext.Provider
       value={{
         data,
+        data2,
         dispatch,
         sortedData,
         filteredData,
         setFilteredData,
+        recommendedData,
+        setRecommendedData,
         ranNum,
         setRanNum,
         guNames,
@@ -201,15 +239,28 @@ const Context = ({ children }) => {
         setDefaultCal,
         limit,
         setLimit,
+        limit2,
+        setLimit2,
         lastDataRef,
+        lastDataRef2,
         throttle,
         searchedData,
         setSearchedData,
+        searchedData2,
+        setSearchedData2,
         latLon,
         handleCateBtn,
         cateBtnRef,
         swiperRef,
         relatedRef,
+        relatedSrcOn,
+        setRelatedSrcOn,
+        highResImg,
+        setHighResImg,
+        expanded,
+        setExpanded,
+        subjCodes,
+        setSubjCodes,
       }}>
       {children}
     </MyContext.Provider>
@@ -218,3 +269,23 @@ const Context = ({ children }) => {
 
 export const MyContext = createContext(null);
 export default Context;
+// 고화질 이미지 데이터 맵 (굉장히 느려서 사용하지 않음)
+// useEffect(() => {
+//   recommendedData.map((obj, key) => {
+//     const hResImg = new Image();
+//     hResImg.src = obj;
+//     return (hResImg.onload = () => {
+//       // console.log(hResImg);
+//       if (hResImg.height > 2000) {
+//         setHighResImg((prevHighResImg) => [
+//           ...prevHighResImg,
+//           {
+//             id: key + 1,
+//             height: hResImg.height,
+//             width: hResImg.width,
+//           },
+//         ]);
+//       }
+//     });
+//   });
+// }, [recommendedData]);

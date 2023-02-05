@@ -1,10 +1,13 @@
 import React, { useContext, useEffect } from "react";
 import SearchBarSub from "./SearchBarSub";
 import { MyContext } from "./Context";
+import { useLocation } from "react-router-dom";
 
 const SearchBar = () => {
-  const { setSearch, elSearchBar, elCalendar, dispatch, setSelectedDate, daysOfWeek, defaultCal, setOptionValue, swiperRef, today, setSelected, relatedRef, searchedData } = useContext(MyContext);
+  const { setSearch, elSearchBar, elCalendar, dispatch, setSelectedDate, daysOfWeek, defaultCal, setOptionValue, swiperRef, today, setSelected, relatedRef, searchedData, setRelatedSrcOn } =
+    useContext(MyContext);
   let idx = 0;
+  const pathName = useLocation().pathname;
   useEffect(() => {
     elSearchBar.current.focus();
   }, [elSearchBar]);
@@ -21,13 +24,19 @@ const SearchBar = () => {
       idx--;
       elSearchBar.current.value = relatedRef.current[idx].innerText;
     }
-    // setTimeout(() => {
-    //   elSearchBar.current.focus();
-    //   elSearchBar.current.setSelectionRange(elSearchBar.current.value.length, elSearchBar.current.value.length);
-    // }, 5);
-    // setTimeout(() => {
-    //   elSearchBar.current.dispatchEvent(new KeyboardEvent("keydown", { key: "End" }));
-    // }, 100);
+  };
+  const resetFn = () => {
+    dispatch({ type: "SET_CATEGORY", payload: "" });
+    dispatch({ type: "SET_DATE", payload: defaultCal });
+    dispatch({ type: "SET_PLACE", payload: "" });
+    setSelectedDate(daysOfWeek[today.getDay()]);
+    setSelected("전체");
+    setOptionValue("전체지역");
+    setSearch("");
+    swiperRef.current.swiper.slideTo(0);
+    pathName === "/search" && (elCalendar.current.value = defaultCal);
+    elSearchBar.current.value = "";
+    elSearchBar.current.placeholder = "검색어를 입력하세요";
   };
 
   return (
@@ -36,30 +45,25 @@ const SearchBar = () => {
         <input
           ref={elSearchBar}
           type="search"
-          placeholder="제목을 입력하세요"
+          placeholder="검색어를 입력하세요"
           onChange={(e) => {
             setSearch(e.target.value);
-            elSearchBar.current.placeholder = "제목을 입력하세요";
+            elSearchBar.current.placeholder = "검색어를 입력하세요";
           }}
-          onClick={(e) => {}}
           onKeyDown={(e) => handleRelated(e)}
+          onFocus={(e) => setRelatedSrcOn(true)}
+          onBlur={(e) => {
+            setTimeout(() => {
+              setRelatedSrcOn(false);
+            }, 10);
+          }}
         />
         <SearchBarSub idx={idx} />
       </div>
       <button
         className="reset-btn"
         onClick={(e) => {
-          dispatch({ type: "SET_CATEGORY", payload: "" });
-          dispatch({ type: "SET_DATE", payload: defaultCal });
-          dispatch({ type: "SET_PLACE", payload: "" });
-          setSelectedDate(daysOfWeek[today.getDay()]);
-          setSelected("전체");
-          setOptionValue("전체지역");
-          setSearch("");
-          swiperRef.current.swiper.slideTo(0);
-          elCalendar.current.value = defaultCal;
-          elSearchBar.current.value = "";
-          elSearchBar.current.placeholder = "제목을 입력하세요";
+          resetFn();
         }}>
         초기화
       </button>

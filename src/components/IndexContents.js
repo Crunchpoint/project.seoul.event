@@ -12,10 +12,10 @@ import "swiper/scss/navigation";
 import "swiper/scss/pagination";
 
 const IndexContents = () => {
-  const { data, ranNum } = useContext(MyContext);
+  const { ranNum, filteredData } = useContext(MyContext);
 
   // run this code only once when the component is mounted
-  return data?.length > 0 && ranNum?.length > 0 ? (
+  return filteredData?.length > 0 && ranNum?.length > 0 ? (
     <>
       <div className="container1">
         <div className="swiper-title">
@@ -36,7 +36,7 @@ const IndexContents = () => {
             clickable: true,
           }}
           className="mySwiper">
-          {data.slice(0, 5).map((obj, key) => {
+          {filteredData.slice(0, 5).map((obj, key) => {
             return (
               <SwiperSlide key={key}>
                 <IndexContentsSub idx={key} />

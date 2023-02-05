@@ -4,11 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CateBtn from "./CateBtn";
 import "swiper/scss";
 
-const SearchCate = () => {
-  const { codeNames, swiperRef } = useContext(MyContext);
+const SearchCate = ({ props }) => {
+  const { swiperRef } = useContext(MyContext);
   const filteredCodeNames = [];
 
-  let nameStorage = codeNames?.map((obj, key) => {
+  let nameStorage = props?.map((obj, key) => {
     return obj.split("/")[0];
   });
 
@@ -16,7 +16,7 @@ const SearchCate = () => {
 
   return (
     <div className="search-cate">
-      <Swiper ref={swiperRef} modules={[]} spaceBetween={10} slidesPerView={"6"} centeredSlides={false} className="mySwiper">
+      <Swiper ref={swiperRef} modules={[]} spaceBetween={10} slidesPerView={"auto"} centeredSlides={false} className="mySwiper">
         {filteredCodeNames[0]?.map((obj, key) => {
           return (
             <SwiperSlide key={key}>

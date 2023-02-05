@@ -18,6 +18,7 @@ const IndexContentsItems = () => {
         return (
           <figure key={key}>
             <Link to="/search">
+              <img src="" alt="" />
               <CateBtn idx={key} obj={obj} />
               <figcaption>{obj}</figcaption>
             </Link>
