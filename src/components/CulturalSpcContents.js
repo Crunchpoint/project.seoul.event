@@ -7,7 +7,7 @@ const CulturalSpcContents = ({ obj, idx }) => {
   const handleExpand = (idx) => {
     setExpanded(idx === expanded ? null : idx);
   };
-  console.log(expanded);
+
   return (
     <>
       <figure>
