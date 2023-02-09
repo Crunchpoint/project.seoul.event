@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useReducer, useRef, useState } from "r
 import { throttle } from "lodash";
 import axios from "axios";
 
-const dataUrl = `http://localhost:8080/data`;
+const dataUrl = "https://port-0-express-server-sop272gldlaid6z.gksl2.cloudtype.app/";
 const dataUrl10 = "./assets/json/PlaceUrl.json";
 
 const infoFn = (state, action) => {

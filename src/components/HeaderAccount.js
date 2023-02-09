@@ -63,7 +63,7 @@ const HeaderAccount = () => {
                 //   window.location.replace("/");
                 // }, 600);
               }}>
-              로그인
+              카카오 로그인
             </li>
           </ul>
         )}

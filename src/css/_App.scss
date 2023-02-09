@@ -25,7 +25,7 @@
 }
 
 $grayBg: rgba(164, 164, 164, 0.5);
-$color1: #ffd7d7;
+$color1: #ffbfa1;
 $color2: #e6e6fa;
 
 $mainIconUrl: (
@@ -82,7 +82,7 @@ body {
 }
 .content-wrapper {
   max-width: 480px;
-  min-height: 100vh;
+  min-height: 100%;
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
   background-color: #fff;
@@ -690,7 +690,7 @@ body {
       #map {
         position: relative;
         width: 100%;
-        height: 83vh;
+        min-height: 83vh;
       }
       #category {
         position: absolute;
@@ -1164,6 +1164,8 @@ body {
           }
           svg {
           }
+        }
+        .map {
         }
       }
     }
