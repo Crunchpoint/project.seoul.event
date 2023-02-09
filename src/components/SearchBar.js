@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import SearchBarSub from "./SearchBarSub";
 import { MyContext } from "./Context";
 import { useLocation } from "react-router-dom";
+import SearchbyPlace from "./SearchbyPlace";
 
 const SearchBar = () => {
   const {
@@ -77,6 +78,7 @@ const SearchBar = () => {
         />
         <SearchBarSub idx={idx} />
       </div>
+      <SearchbyPlace />
       <button
         className="reset-btn"
         onClick={(e) => {

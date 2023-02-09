@@ -8,8 +8,8 @@ const SearchBarSub = ({ idx }) => {
 
   return (
     elSearchBar.current?.value.length > 0 && (
-      <div className="list-wrapper">
-        <ul className={relatedSrcOn ? "active" : ""}>
+      <div className={relatedSrcOn === true ? "list-wrapper active" : "list-wrapper"}>
+        <ul>
           {pathName === "/search"
             ? searchedData.map((obj, key) => {
                 return (

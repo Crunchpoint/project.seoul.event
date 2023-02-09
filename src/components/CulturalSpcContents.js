@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { MyContext } from "./Context";
 
 const CulturalSpcContents = ({ obj, idx }) => {
-  const { expanded, setExpanded } = useContext(MyContext);
+  const { expanded, setExpanded, setTargetLoc } = useContext(MyContext);
 
   const handleExpand = (idx) => {
     setExpanded(idx === expanded ? null : idx);
@@ -16,8 +17,13 @@ const CulturalSpcContents = ({ obj, idx }) => {
         </a>
       </figure>
       <div className="cultural-space-contents">
-        <p>{obj.SUBJCODE}</p>
-        <p>{obj.FAC_NAME}</p>
+        <div className="text-wrapper">
+          <p>{obj.SUBJCODE}</p>
+          <p>{obj.FAC_NAME}</p>
+        </div>
+        <Link to="/map">
+          <button onClick={() => setTargetLoc({ name: obj.FAC_NAME, lat: obj.X_COORD, lng: obj.Y_COORD })}>위치보기</button>
+        </Link>
       </div>
       <div className={expanded === idx ? "see-more active" : "see-more"}>
         <button onClick={() => handleExpand(idx)}></button>

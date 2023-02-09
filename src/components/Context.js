@@ -23,6 +23,7 @@ const infoFn = (state, action) => {
 };
 
 const Context = ({ children }) => {
+  const { Kakao } = window;
   const newDate = new Date(),
     today = new Date(newDate.getTime() + (newDate.getTimezoneOffset() + 9 * 60) * 60000),
     year = today.getFullYear(),
@@ -55,6 +56,10 @@ const Context = ({ children }) => {
   const [latLon, setLatLon] = useState([]);
   const [relatedSrcOn, setRelatedSrcOn] = useState(false);
   const [expanded, setExpanded] = useState(null);
+  const [targetLoc, setTargetLoc] = useState({ name: "현재 위치", lat: "", lng: "" });
+  const [user, setUser] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
+  const [logInBox, setLogInBox] = useState(false);
   const elSearchBar = useRef();
   const elCalendar = useRef();
   const lastDataRef = useRef(null);
@@ -177,6 +182,66 @@ const Context = ({ children }) => {
       setLatLon([position.coords.latitude, position.coords.longitude]);
     });
   }, []);
+  const initKakao = async () => {
+    const jsKey = process.env.REACT_APP_KAKAO_KEY;
+    if (Kakao && !Kakao.isInitialized()) {
+      await Kakao.init(jsKey);
+      console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
+    }
+  };
+  const kakaoLogin = async () => {
+    await Kakao.Auth.login({
+      success(res) {
+        console.log(res);
+        Kakao.Auth.setAccessToken(res.access_token);
+        console.log("카카오 로그인 성공");
+
+        Kakao.API.request({
+          url: "/v2/user/me",
+          success(res) {
+            console.log("카카오 인가 요청 성공");
+            setIsLogin(true);
+            const kakaoAccount = res.kakao_account;
+            localStorage.setItem("email", kakaoAccount.email);
+            localStorage.setItem("profileImg", kakaoAccount.profile.profile_image_url);
+            localStorage.setItem("nickname", kakaoAccount.profile.nickname);
+            window.location.replace("/");
+          },
+          fail(error) {
+            console.log(error);
+          },
+        });
+      },
+      fail(error) {
+        console.log(error);
+      },
+    });
+  };
+  const kakaoLogout = () => {
+    Kakao.Auth.logout((res) => {
+      console.log(Kakao.Auth.getAccessToken());
+      console.log(res);
+      localStorage.removeItem("email");
+      localStorage.removeItem("profileImg");
+      localStorage.removeItem("nickname");
+      setUser(null);
+      window.location.replace("/");
+    });
+  };
+  useEffect(() => {
+    initKakao();
+    Kakao.Auth.getAccessToken() ? setIsLogin(true) : setIsLogin(false);
+  }, [Kakao.Auth, isLogin]);
+  useEffect(() => {
+    console.log(isLogin);
+    if (isLogin) {
+      setUser({
+        email: localStorage.getItem("email"),
+        profileImg: localStorage.getItem("profileImg"),
+        nickname: localStorage.getItem("nickname"),
+      });
+    }
+  }, [isLogin]);
   // 카테고리 버튼 이벤트
   const handleCateBtn = (e, key, obj, dispatch, setSelected) => {
     dispatch({ type: "SET_CATEGORY", payload: obj === "전체" ? "" : obj });
@@ -198,7 +263,6 @@ const Context = ({ children }) => {
     }
     setRanNum(randomNum);
   }, [setRanNum, filteredData]);
-
   return (
     <MyContext.Provider
       value={{
@@ -261,6 +325,13 @@ const Context = ({ children }) => {
         setExpanded,
         subjCodes,
         setSubjCodes,
+        targetLoc,
+        setTargetLoc,
+        user,
+        kakaoLogin,
+        kakaoLogout,
+        logInBox,
+        setLogInBox,
       }}>
       {children}
     </MyContext.Provider>

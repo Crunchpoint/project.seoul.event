@@ -27,9 +27,11 @@ const Search = () => {
   return (
     <div className="search-list">
       <ToTopBtn />
-      <SearchPlace />
-      <SearchCate props={codeNames} />
-      <SearchBar />
+      <div className="search-header">
+        <SearchPlace />
+        <SearchCate props={codeNames} />
+        <SearchBar />
+      </div>
       <div className="sorted-list">
         {searchedData?.slice(0, limit).map((obj, key) => {
           return (

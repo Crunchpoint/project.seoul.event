@@ -3,10 +3,13 @@ import { MyContext } from "./Context";
 const { kakao } = window;
 
 const Map = () => {
-  const { latLon } = useContext(MyContext);
+  const { latLon, targetLoc, setTargetLoc } = useContext(MyContext);
 
   useEffect(() => {
-    var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+    let iwContent = `<div style="width:150px;text-align:center;padding:6px 0;">${targetLoc.name}</div>`;
+    let infowindow = new kakao.maps.InfoWindow({
+      content: iwContent,
+    });
     let placeOverlay = new kakao.maps.CustomOverlay({ zIndex: 1 }),
       contentNode = document.createElement("div"), // 커스텀 오버레이의 컨텐츠 엘리먼트 입니다
       markers = [], // 마커를 담을 배열입니다
@@ -14,19 +17,32 @@ const Map = () => {
 
     let mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+        center: new kakao.maps.LatLng(37.56634, 126.97945), // 지도의 중심좌표
         level: 2, // 지도의 확대 레벨
         maxLevel: 5,
       };
+
     // 지도를 생성합니다
     let map = new kakao.maps.Map(mapContainer, mapOption);
+    let myLoc = new kakao.maps.LatLng(latLon[0], latLon[1]);
+    let target = new kakao.maps.LatLng(targetLoc.lat, targetLoc.lng);
 
-    // 현재 위치를 받아오는 변수
-    let locPosition;
-    latLon.length > 0 ? (locPosition = new kakao.maps.LatLng(latLon[0], latLon[1])) : (locPosition = new kakao.maps.LatLng(37.56634, 126.97945));
     // 지도 중심좌표를 접속위치로 변경합니다
-    map.setCenter(locPosition);
-    displayMarker(locPosition);
+    if (targetLoc?.name !== "현재 위치") {
+      map.panTo(target);
+      displayMarker(target);
+    } else if (latLon[0] !== undefined) {
+      map.panTo(myLoc);
+      displayMarker2(myLoc);
+    }
+    // btn-loc 클릭시 현재 위치로 이동
+    const btnLoc = document.getElementById("loc-btn");
+    btnLoc.addEventListener("click", () => {
+      setTargetLoc({ name: "현재 위치", lat: latLon[0], lng: latLon[1] });
+      // 지도 중심좌표를 접속위치로 변경합니다
+      map.panTo(myLoc);
+      displayMarker2(myLoc);
+    });
 
     function displayMarker(locPosition) {
       // 마커를 생성합니다
@@ -34,16 +50,17 @@ const Map = () => {
         map: map,
         position: locPosition,
       });
+      infowindow.open(map, marker);
     }
 
-    // btn-loc 클릭시 현재 위치로 이동
-    const btnLoc = document.getElementById("loc-btn");
-    btnLoc.addEventListener("click", () => {
-      latLon.length > 0 ? (locPosition = new kakao.maps.LatLng(latLon[0], latLon[1])) : (locPosition = new kakao.maps.LatLng(37.56634, 126.97945));
-      // 지도 중심좌표를 접속위치로 변경합니다
-      map.panTo(locPosition);
-    });
-
+    function displayMarker2(locPosition) {
+      // 마커를 생성합니다
+      let marker = new kakao.maps.Marker({
+        map: map,
+        position: locPosition,
+      });
+      infowindow.close(map, marker);
+    }
     // 장소 검색 객체를 생성합니다
     let ps = new kakao.maps.services.Places(map);
 

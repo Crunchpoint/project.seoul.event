@@ -29,8 +29,10 @@ const CulturalSpc = () => {
       <ToTopBtn />
       <div className="cultural-space-wrapper">
         <h1>서울시 종합 문화공간 정보를 확인 해보세요</h1>
-        <SearchCate props={subjCodes} />
-        <SearchBar />
+        <div className="cultural-header">
+          <SearchCate props={subjCodes} />
+          <SearchBar />
+        </div>
         {searchedData2?.slice(0, limit2).map((obj, key) => {
           return (
             <div key={key} className="cultural-space-items">
