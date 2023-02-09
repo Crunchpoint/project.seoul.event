@@ -2,11 +2,7 @@ import React, { createContext, useEffect, useReducer, useRef, useState } from "r
 import { throttle } from "lodash";
 import axios from "axios";
 
-const dataUrl = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/1/1000/`;
-const dataUrl2 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/1001/2000/`;
-const dataUrl3 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/2001/3000/`;
-const dataUrl4 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalEventInfo/3001/4000/`;
-const dataUrl5 = `http://openapi.seoul.go.kr:8088/${process.env.REACT_APP_API_KEY}/json/culturalSpaceInfo/1/1000/`;
+const dataUrl = `http://localhost:8080/data`;
 const dataUrl10 = "./assets/json/PlaceUrl.json";
 
 const infoFn = (state, action) => {
@@ -83,26 +79,27 @@ const Context = ({ children }) => {
   useEffect(() => {
     async function axiosData() {
       await axios
-        .all([axios.get(dataUrl), axios.get(dataUrl2), axios.get(dataUrl3), axios.get(dataUrl4), axios.get(dataUrl5), axios.get(dataUrl10)])
+        .all([axios.get(dataUrl), axios.get(dataUrl10)])
         .then(
-          axios.spread((res1, res2, res3, res4, res5, res10) => {
+          axios.spread((res1, res10) => {
             localStorage.setItem("storageData", JSON.stringify(res1));
             // 전체 데이터
-            const combinedData = [...res1.data.culturalEventInfo.row, ...res2.data.culturalEventInfo.row, ...res3.data.culturalEventInfo.row, ...res4.data.culturalEventInfo.row];
+            // const combinedData = [...res1.data.culturalEventInfo.row, ...res2.data.culturalEventInfo.row, ...res3.data.culturalEventInfo.row, ...res4.data.culturalEventInfo.row];
+            const combinedData = [...res1.data[0]];
             setData(combinedData);
             // 필터링 데이터(오늘 날짜 이후의 데이터)
-            setData2(res5.data.culturalSpaceInfo.row);
-            const filteredData = res1.data.culturalEventInfo.row.filter((obj) => {
+            setData2(res1.data[1]);
+            const filteredData = res1.data[0].filter((obj) => {
               return obj.END_DATE > today.toJSON() && obj.STRTDATE < today.toJSON();
             });
             setFilteredData(filteredData);
             // 이미지 데이터
-            const filtedImages = res1.data.culturalEventInfo.row.map((obj) => {
+            const filtedImages = res1.data[0].map((obj) => {
               return obj.MAIN_IMG;
             });
             setRecommendedData(filtedImages);
             // 구네임 데이터
-            res1.data.culturalEventInfo.row.map((obj) => {
+            res1.data[0].map((obj) => {
               return guName.add("전체지역").add(obj.GUNAME);
             });
             // 구네임 필터링
@@ -111,7 +108,7 @@ const Context = ({ children }) => {
             });
             setGuNames([...filteredGuNames]);
             // 코드네임 데이터
-            res1.data.culturalEventInfo.row.map((obj) => {
+            res1.data[0].map((obj) => {
               return codeName.add("전체").add(obj.CODENAME.split("-")[0]);
             });
             // 코드네임 카테고리 위치 변경
@@ -120,7 +117,7 @@ const Context = ({ children }) => {
             copy.splice(12, 0, replaceCate[0]);
             setCodenames(copy);
             // 코드네임2 데이터
-            res5.data.culturalSpaceInfo.row.map((obj) => {
+            res1.data[1].map((obj) => {
               return subjCode.add("전체").add(obj.SUBJCODE);
             });
             let copy2 = [...subjCode];
@@ -128,7 +125,7 @@ const Context = ({ children }) => {
             copy2.splice(7, 0, replaceCate2[0]);
             setSubjCodes(copy2);
             // 이벤트 날짜 데이터
-            res1.data.culturalEventInfo.row.map((obj) => {
+            res1.data[0].map((obj) => {
               eventDate.add(obj.DATE);
               return setEventDates([...eventDate]);
             });
@@ -182,24 +179,25 @@ const Context = ({ children }) => {
       setLatLon([position.coords.latitude, position.coords.longitude]);
     });
   }, []);
+  // 카카오 로그인
   const initKakao = async () => {
     const jsKey = process.env.REACT_APP_KAKAO_KEY;
     if (Kakao && !Kakao.isInitialized()) {
       await Kakao.init(jsKey);
-      console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
+      // console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
     }
   };
   const kakaoLogin = async () => {
     await Kakao.Auth.login({
       success(res) {
-        console.log(res);
+        // console.log(res);
         Kakao.Auth.setAccessToken(res.access_token);
-        console.log("카카오 로그인 성공");
+        // console.log("카카오 로그인 성공");
 
         Kakao.API.request({
           url: "/v2/user/me",
           success(res) {
-            console.log("카카오 인가 요청 성공");
+            // console.log("카카오 인가 요청 성공");
             setIsLogin(true);
             const kakaoAccount = res.kakao_account;
             localStorage.setItem("email", kakaoAccount.email);
@@ -220,7 +218,7 @@ const Context = ({ children }) => {
   const kakaoLogout = () => {
     Kakao.Auth.logout((res) => {
       console.log(Kakao.Auth.getAccessToken());
-      console.log(res);
+      // console.log(res);
       localStorage.removeItem("email");
       localStorage.removeItem("profileImg");
       localStorage.removeItem("nickname");
@@ -233,7 +231,7 @@ const Context = ({ children }) => {
     Kakao.Auth.getAccessToken() ? setIsLogin(true) : setIsLogin(false);
   }, [Kakao.Auth, isLogin]);
   useEffect(() => {
-    console.log(isLogin);
+    // console.log(isLogin);
     if (isLogin) {
       setUser({
         email: localStorage.getItem("email"),
