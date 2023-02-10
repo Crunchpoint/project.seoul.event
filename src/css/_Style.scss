@@ -67,6 +67,11 @@ body {
     align-self: center;
     color: white;
     font-size: 2.5em;
+    .side-contents-inner {
+      .side-contents-text {
+        // opacity: 0;
+      }
+    }
   }
   .side-contentsR {
     justify-self: center;
@@ -82,7 +87,7 @@ body {
 }
 .content-wrapper {
   max-width: 480px;
-  min-height: 100%;
+  min-height: 100vh;
   border-right: 1px solid #ddd;
   border-left: 1px solid #ddd;
   background-color: #fff;
@@ -230,13 +235,13 @@ body {
     }
   }
   .main-container {
-    min-height: 85vh;
+    position: relative;
+    min-height: 83vh;
     // top button css
     .to-top {
-      position: fixed;
-      top: 85vh;
-      right: 50vw;
-      transform: translateX(50%);
+      position: sticky;
+      top: 89vh;
+      left: calc(100% - 50px);
       width: 35px;
       height: 35px;
       border-radius: 50%;
@@ -686,11 +691,11 @@ body {
     .map_wrap {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: calc(100vh - 135px);
       #map {
         position: relative;
         width: 100%;
-        min-height: 83vh;
+        min-height: 100%;
       }
       #category {
         position: absolute;
@@ -823,8 +828,8 @@ body {
       }
       #loc-btn {
         position: absolute;
-        bottom: 5vh;
-        right: 3vw;
+        bottom: 50px;
+        right: 50px;
         z-index: 2;
         width: 50px;
         height: 50px;
@@ -1164,8 +1169,6 @@ body {
           }
           svg {
           }
-        }
-        .map {
         }
       }
     }

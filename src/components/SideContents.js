@@ -1,4 +1,15 @@
+import React, { useContext } from "react";
+import { MyContext } from "./Context";
+import SideContentsText from "./SideContentsText";
 const SideContents = () => {
-  return <div className="side-contents">컨텐츠 텍스트1</div>;
+  const {} = useContext(MyContext);
+  return (
+    <div className="side-contents">
+      <div className="side-contents-inner">
+        <SideContentsText />
+      </div>
+    </div>
+  );
 };
+
 export default SideContents;

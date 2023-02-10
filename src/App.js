@@ -9,7 +9,7 @@ import CalturalSpc from "./components/CulturalSpc";
 import SideContents from "./components/SideContents";
 import SideContentsR from "./components/SideContentsR";
 import Footer from "./components/Footer";
-import "./css/_App.scss";
+import "./css/_Style.scss";
 
 function App() {
   return (
