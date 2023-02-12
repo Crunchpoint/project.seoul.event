@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { MyContext } from "./Context";
+import { Link } from "react-router-dom";
 
 const HeaderAccount = () => {
   const { user, kakaoLogin, kakaoLogout, logInBox, setLogInBox } = useContext(MyContext);
   const logInFn = (e) => {
     document.addEventListener("click", (e) => {
-      e.target.className === "profile-img-item" || e.target.className.animVal === "profile-img-item" ? setLogInBox(!logInBox) : setLogInBox(false);
+      e.target.className === "profile-img-item" || e.target.className.animVal === "profile-img-item" ? setLogInBox(true) : setLogInBox(false);
     });
   };
   return (
@@ -45,13 +46,12 @@ const HeaderAccount = () => {
               className="kakao-logOut"
               onClick={() => {
                 kakaoLogout();
-                // setTimeout(() => {
-                //   window.location.replace("/");
-                // }, 600);
               }}>
               <p>로그아웃</p>
             </li>
-            <li>최근목록</li>
+            <Link to="/recent">
+              <li>관심목록</li>
+            </Link>
           </ul>
         ) : (
           <ul className="user-none">
@@ -59,9 +59,6 @@ const HeaderAccount = () => {
               className="kakao-logIn"
               onClick={() => {
                 kakaoLogin();
-                // setTimeout(() => {
-                //   window.location.replace("/");
-                // }, 600);
               }}>
               카카오 로그인
             </li>

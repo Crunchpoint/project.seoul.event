@@ -7,6 +7,7 @@ import Recommends from "./components/Recommends";
 import CalturalSpc from "./components/CulturalSpc";
 import SideContents from "./components/SideContents";
 import SideContentsR from "./components/SideContentsR";
+import Recent from "./components/Recent";
 import Footer from "./components/Footer";
 import React, { useContext } from "react";
 import { MyContext } from "./components/Context";
@@ -30,6 +31,7 @@ function App() {
             <Route path="/culturalspc" element={<CalturalSpc />} />
             <Route path="/map" element={<Map />} />
             <Route path="/recommends" element={<Recommends />} />
+            <Route path="/recent" element={<Recent />} />
           </Routes>
         </main>
         <Footer />

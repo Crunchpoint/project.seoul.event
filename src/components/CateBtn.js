@@ -9,7 +9,6 @@ const CateBtn = ({ idx, obj }) => {
     <motion.button
       ref={(e) => (cateBtnRef.current[idx] = e)}
       className={selected === obj ? "selected" : ""}
-      // initial={{ scale: 0.8 }}
       whileHover={{ scale: 1.1 }}
       transition={{ type: "spring", stiffness: 400, damping: 10 }}
       onClick={(e) => {

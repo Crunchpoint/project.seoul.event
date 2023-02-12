@@ -21,7 +21,8 @@ const SideContentsText = () => {
       result: `${searchedData2.length} 개의 검색 결과가 있습니다.`,
     },
     { path: "/map", title: "지도", description: "주변 정보를 확인해보세요." },
-    { path: "/recommends", title: "추천", description: "오늘의 추천 문화정보 입니다. " },
+    { path: "/recommends", title: "추천", description: "오늘의 추천 문화정보 입니다." },
+    { path: "/recent", title: "관심목록", description: "최근 등록된 관심목록 리스트 입니다." },
   ];
 
   return (

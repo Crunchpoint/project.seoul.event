@@ -57,6 +57,7 @@ const Context = ({ children }) => {
   const [isLogin, setIsLogin] = useState(false);
   const [logInBox, setLogInBox] = useState(false);
   const [mainCont, setMainCont] = useState(false);
+  const [like, setLike] = useState(false);
   const elSearchBar = useRef();
   const elCalendar = useRef();
   const lastDataRef = useRef(null);
@@ -83,23 +84,24 @@ const Context = ({ children }) => {
         .all([axios.get(dataUrl), axios.get(dataUrl10)])
         .then(
           axios.spread((res1, res10) => {
+            // 로컬스토리지에 데이터 저장
             localStorage.setItem("storageData", JSON.stringify(res1));
             // 전체 데이터
-            const combinedData = [...res1.data[0]];
+            const combinedData = [...storageData.data[0]];
             setData(combinedData);
             // 필터링 데이터(오늘 날짜 이후의 데이터)
-            setData2(res1.data[1]);
-            const filteredData = res1.data[0].filter((obj) => {
+            setData2(storageData.data[1]);
+            const filteredData = storageData.data[0].filter((obj) => {
               return obj.END_DATE > today.toJSON() && obj.STRTDATE < today.toJSON();
             });
             setFilteredData(filteredData);
             // 이미지 데이터
-            const filtedImages = res1.data[0].map((obj) => {
+            const filtedImages = storageData.data[0].map((obj) => {
               return obj.MAIN_IMG;
             });
             setRecommendedData(filtedImages);
             // 구네임 데이터
-            res1.data[0].map((obj) => {
+            storageData.data[0].map((obj) => {
               return guName.add("전체지역").add(obj.GUNAME);
             });
             // 구네임 필터링
@@ -108,7 +110,7 @@ const Context = ({ children }) => {
             });
             setGuNames([...filteredGuNames]);
             // 코드네임 데이터
-            res1.data[0].map((obj) => {
+            storageData.data[0].map((obj) => {
               return codeName.add("전체").add(obj.CODENAME.split("-")[0]);
             });
             // 코드네임 카테고리 위치 변경
@@ -117,7 +119,7 @@ const Context = ({ children }) => {
             copy.splice(12, 0, replaceCate[0]);
             setCodenames(copy);
             // 코드네임2 데이터
-            res1.data[1].map((obj) => {
+            storageData.data[1].map((obj) => {
               return subjCode.add("전체").add(obj.SUBJCODE);
             });
             let copy2 = [...subjCode];
@@ -125,7 +127,7 @@ const Context = ({ children }) => {
             copy2.splice(7, 0, replaceCate2[0]);
             setSubjCodes(copy2);
             // 이벤트 날짜 데이터
-            res1.data[0].map((obj) => {
+            storageData.data[0].map((obj) => {
               eventDate.add(obj.DATE);
               return setEventDates([...eventDate]);
             });
@@ -261,7 +263,14 @@ const Context = ({ children }) => {
     }
     setRanNum(randomNum);
   }, [setRanNum, filteredData]);
-
+  const sessionStorageFn = (key, obj) => {
+    if (sessionStorage[key]) {
+      sessionStorage.removeItem(key);
+    } else {
+      sessionStorage.setItem(key, obj.TITLE);
+    }
+    setLike(!like);
+  };
   return (
     <MyContext.Provider
       value={{
@@ -333,6 +342,9 @@ const Context = ({ children }) => {
         setLogInBox,
         mainCont,
         setMainCont,
+        like,
+        setLike,
+        sessionStorageFn,
       }}>
       {children}
     </MyContext.Provider>
