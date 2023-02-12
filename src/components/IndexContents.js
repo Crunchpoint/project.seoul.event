@@ -6,7 +6,6 @@ import IndexContentsSub from "./IndexContentsSub";
 import { MyContext } from "./Context";
 import { Autoplay, Pagination } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Link } from "react-router-dom";
 import "swiper/scss";
 import "swiper/scss/navigation";
 import "swiper/scss/pagination";
@@ -43,9 +42,6 @@ const IndexContents = () => {
               </SwiperSlide>
             );
           })}
-          <button className="recommend">
-            <Link to="/recommends"> + 모두보기</Link>
-          </button>
         </Swiper>
         <IndexContentsItems />
       </div>

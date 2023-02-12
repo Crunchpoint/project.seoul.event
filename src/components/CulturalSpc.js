@@ -27,19 +27,21 @@ const CulturalSpc = () => {
   return (
     <section className="cultural-space">
       <ToTopBtn />
+      <h1>서울시 종합 문화공간 정보를 확인 해보세요</h1>
       <div className="cultural-space-wrapper">
-        <h1>서울시 종합 문화공간 정보를 확인 해보세요</h1>
         <div className="cultural-header">
           <SearchCate props={subjCodes} />
           <SearchBar />
         </div>
-        {searchedData2?.slice(0, limit2).map((obj, key) => {
-          return (
-            <div key={key} className="cultural-space-items">
-              <CulturalSpcContents obj={obj} idx={key} />
-            </div>
-          );
-        })}
+        <ul>
+          {searchedData2?.slice(0, limit2).map((obj, key) => {
+            return (
+              <li key={key} className="cultural-space-items">
+                <CulturalSpcContents obj={obj} idx={key} />
+              </li>
+            );
+          })}
+        </ul>
         {searchedData2?.length > limit2 && (
           <div ref={lastDataRef2} className="loading-data">
             Loading...

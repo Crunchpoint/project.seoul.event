@@ -73,7 +73,7 @@ const SearchBar = () => {
           onBlur={(e) => {
             setTimeout(() => {
               setRelatedSrcOn(false);
-            }, 10);
+            }, 250);
           }}
         />
         <SearchBarSub idx={idx} />

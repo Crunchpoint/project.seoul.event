@@ -56,6 +56,7 @@ const Context = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLogin, setIsLogin] = useState(false);
   const [logInBox, setLogInBox] = useState(false);
+  const [mainCont, setMainCont] = useState(false);
   const elSearchBar = useRef();
   const elCalendar = useRef();
   const lastDataRef = useRef(null);
@@ -84,7 +85,6 @@ const Context = ({ children }) => {
           axios.spread((res1, res10) => {
             localStorage.setItem("storageData", JSON.stringify(res1));
             // 전체 데이터
-            // const combinedData = [...res1.data.culturalEventInfo.row, ...res2.data.culturalEventInfo.row, ...res3.data.culturalEventInfo.row, ...res4.data.culturalEventInfo.row];
             const combinedData = [...res1.data[0]];
             setData(combinedData);
             // 필터링 데이터(오늘 날짜 이후의 데이터)
@@ -261,6 +261,7 @@ const Context = ({ children }) => {
     }
     setRanNum(randomNum);
   }, [setRanNum, filteredData]);
+
   return (
     <MyContext.Provider
       value={{
@@ -330,6 +331,8 @@ const Context = ({ children }) => {
         kakaoLogout,
         logInBox,
         setLogInBox,
+        mainCont,
+        setMainCont,
       }}>
       {children}
     </MyContext.Provider>

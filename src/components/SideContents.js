@@ -3,6 +3,7 @@ import { MyContext } from "./Context";
 import SideContentsText from "./SideContentsText";
 const SideContents = () => {
   const {} = useContext(MyContext);
+
   return (
     <div className="side-contents">
       <div className="side-contents-inner">

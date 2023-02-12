@@ -3,7 +3,7 @@ import { MyContext } from "./Context";
 const { kakao } = window;
 
 const Map = () => {
-  const { latLon, targetLoc, setTargetLoc } = useContext(MyContext);
+  const { latLon, targetLoc, setTargetLoc, mainCont, setMainCont } = useContext(MyContext);
 
   useEffect(() => {
     let iwContent = `<div style="width:150px;text-align:center;padding:6px 0;">${targetLoc.name}</div>`;
@@ -143,7 +143,7 @@ const Map = () => {
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, order) {
-      let imageSrc = "./assets/images/spritesheet.png", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      let imageSrc = "./assets/images/spritesheet2.jpg", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(162, 27), // 스프라이트 이미지의 크기
@@ -221,9 +221,9 @@ const Map = () => {
         currCategory = id;
         changeCategoryClass(this);
         searchPlaces();
+        console.log(currCategory);
       }
     }
-
     // 클릭된 카테고리에만 클릭된 스타일을 적용하는 함수입니다
     function changeCategoryClass(el) {
       let category = document.getElementById("category"),

@@ -19,8 +19,8 @@ const SearchBarSub = ({ idx }) => {
                     key={key}
                     onClick={(e) => {
                       setSearch(obj.TITLE);
-                      elSearchBar.current.placeholder = obj.TITLE;
                       elSearchBar.current.value = "";
+                      elSearchBar.current.placeholder = obj.TITLE;
                     }}>
                     {obj.TITLE}
                   </li>

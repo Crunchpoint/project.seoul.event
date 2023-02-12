@@ -18,8 +18,8 @@ const CulturalSpcContents = ({ obj, idx }) => {
       </figure>
       <div className="cultural-space-contents">
         <div className="text-wrapper">
+          <p>{obj.FAC_NAME.replace(/&quot;|<[^>]*>/g, "")}</p>
           <p>{obj.SUBJCODE}</p>
-          <p>{obj.FAC_NAME}</p>
         </div>
         <Link to="/map">
           <button onClick={() => setTargetLoc({ name: obj.FAC_NAME, lat: obj.X_COORD, lng: obj.Y_COORD })}>위치보기</button>
@@ -31,7 +31,7 @@ const CulturalSpcContents = ({ obj, idx }) => {
           <p>{obj.ADDR.replace(/\)/g, "")}</p>
           <p>{obj.PHNE}</p>
           <p>휴일: {obj.CLOSEDAY}</p>
-          <p>{obj.FAC_DESC.replace(/&nbsp;|&#39;|&gt;|&lt;|&#45;|<[^>]*>/g, "")}</p>
+          <p>{obj.FAC_DESC.replace(/&nbsp;|&#39;|&gt;|&lt;|&#45;|&quot;|<[^>]*>/g, "")}</p>
         </div>
       </div>
     </>

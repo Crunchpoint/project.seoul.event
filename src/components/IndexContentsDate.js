@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { MyContext } from "./Context";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/scss";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const IndexContentsDate = () => {
@@ -37,18 +38,20 @@ const IndexContentsDate = () => {
         {dateArray.map((obj, key) => {
           return (
             <SwiperSlide key={key}>
-              <Link
-                to="/search"
-                onClick={() => {
-                  dispatch({ type: "SET_DATE", payload: calcDate[key] });
-                  setDefaultCal(calcDate[key].substr(0, 10));
-                  setSelectedDate(obj[2] + "요일");
-                }}>
-                <p className={obj[2] === "토" ? "colorBlue" : obj[2] === "일" ? "colorRed" : ""}>{obj[2]}</p>
-                <p className={obj[2] === "토" ? "colorBlue" : obj[2] === "일" ? "colorRed" : ""}>
-                  {obj[0]}/{obj[1]}
-                </p>
-              </Link>
+              <motion.div whileHover={{ scale: 1.2 }}>
+                <Link
+                  to="/search"
+                  onClick={() => {
+                    dispatch({ type: "SET_DATE", payload: calcDate[key] });
+                    setDefaultCal(calcDate[key].substr(0, 10));
+                    setSelectedDate(obj[2] + "요일");
+                  }}>
+                  <p className={obj[2] === "토" ? "colorBlue" : obj[2] === "일" ? "colorRed" : ""}>{obj[2]}</p>
+                  <p className={obj[2] === "토" ? "colorBlue" : obj[2] === "일" ? "colorRed" : ""}>
+                    {obj[0]}/{obj[1]}
+                  </p>
+                </Link>
+              </motion.div>
             </SwiperSlide>
           );
         })}
