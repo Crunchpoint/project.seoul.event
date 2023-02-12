@@ -736,11 +736,13 @@ body {
             padding: 0 0 0 10px;
             svg {
               // I want to fill inside of svg
-              transition: all 0.25s ease-in-out;
               fill: #fff;
               cursor: pointer;
-              path.active {
-                fill: #f00;
+              path {
+                transition: all 0.25s ease-in-out;
+                &.active {
+                  fill: #f00;
+                }
               }
             }
             h2 {
