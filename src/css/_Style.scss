@@ -742,6 +742,7 @@ body {
                 transition: all 0.25s ease-in-out;
                 &.active {
                   fill: #f00;
+                  stroke: none;
                 }
               }
             }
