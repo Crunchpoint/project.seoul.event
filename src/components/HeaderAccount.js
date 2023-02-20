@@ -1,16 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { MyContext } from "./Context";
 import { Link } from "react-router-dom";
 
 const HeaderAccount = () => {
   const { user, kakaoLogin, kakaoLogout, logInBox, setLogInBox } = useContext(MyContext);
-  const logInFn = (e) => {
-    document.addEventListener("click", (e) => {
-      e.target.className === "profile-img-item" || e.target.className.animVal === "profile-img-item" ? setLogInBox(true) : setLogInBox(false);
-    });
-  };
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (e.target.className !== "profile-img-item" && e.target.className.animVal !== "profile-img-item") {
+        setLogInBox(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, [logInBox]);
+
   return (
-    <div className="account-btn" onClick={(e) => logInFn(e)}>
+    <div className="account-btn" onClick={() => setLogInBox(!logInBox)}>
       <div className="profile-img">
         {user ? (
           <img className="profile-img-item" src={user.profileImg} alt="" />
