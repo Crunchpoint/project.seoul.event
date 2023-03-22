@@ -251,11 +251,13 @@ const Context = ({ children }) => {
     }, 10);
   };
   // 랜덤 숫자 생성
+
   useEffect(() => {
     const randomNum = [];
     const usedIndex = new Set();
     while (randomNum.length < 10 && filteredData.length > 0) {
       let randomIndex = Math.floor(Math.random() * filteredData.length);
+
       if (!usedIndex.has(randomIndex)) {
         randomNum.push(randomIndex);
         usedIndex.add(randomIndex);
@@ -263,6 +265,7 @@ const Context = ({ children }) => {
     }
     setRanNum(randomNum);
   }, [setRanNum, filteredData]);
+
   const sessionStorageFn = (key, obj) => {
     if (sessionStorage[key]) {
       sessionStorage.removeItem(key);
