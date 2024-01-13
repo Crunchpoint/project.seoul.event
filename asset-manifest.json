@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/project.seoul.event/static/css/main.8c2f9d33.css",
-    "main.js": "/project.seoul.event/static/js/main.eb9d31d8.js",
+    "main.js": "/project.seoul.event/static/js/main.74a88cd2.js",
     "static/js/787.b852f3aa.chunk.js": "/project.seoul.event/static/js/787.b852f3aa.chunk.js",
     "static/media/SF-Pro.woff2": "/project.seoul.event/static/media/SF-Pro.b4e45f163f4320d41a2c.woff2",
     "static/media/bg4-edited.jpg": "/project.seoul.event/static/media/bg4-edited.d054abe36d807ad34406.jpg",
@@ -11,11 +11,11 @@
     "static/media/spritesheet2.png": "/project.seoul.event/static/media/spritesheet2.e50c2c0516b0da24ef24.png",
     "index.html": "/project.seoul.event/index.html",
     "main.8c2f9d33.css.map": "/project.seoul.event/static/css/main.8c2f9d33.css.map",
-    "main.eb9d31d8.js.map": "/project.seoul.event/static/js/main.eb9d31d8.js.map",
+    "main.74a88cd2.js.map": "/project.seoul.event/static/js/main.74a88cd2.js.map",
     "787.b852f3aa.chunk.js.map": "/project.seoul.event/static/js/787.b852f3aa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8c2f9d33.css",
-    "static/js/main.eb9d31d8.js"
+    "static/js/main.74a88cd2.js"
   ]
 }
