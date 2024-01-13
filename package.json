@@ -30,7 +30,7 @@
     "predeploy": "npm run build && cp CNAME ./build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://crunchpoint.xyz",
+  "homepage": "https://crunchpoint.github.io/project.seoul.event/",
   "eslintConfig": {
     "extends": [
       "react-app",
