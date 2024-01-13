@@ -15,7 +15,7 @@ import "./css/_Style.scss";
 
 function App() {
   const { mainCont } = useContext(MyContext);
-
+  // app
   return (
     <HashRouter basename={process.env.PUBLIC_URL}>
       <div className={mainCont ? "active bg-layer" : "bg-layer"}>
@@ -24,14 +24,14 @@ function App() {
       </div>
       <div className={mainCont ? "active content-wrapper" : "content-wrapper"}>
         <Header />
-        <main className="main-container">
+        <main className='main-container'>
           <Routes>
-            <Route path="/" element={<IndexContents />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/culturalspc" element={<CalturalSpc />} />
-            <Route path="/map" element={<Map />} />
-            <Route path="/recommends" element={<Recommends />} />
-            <Route path="/recent" element={<Recent />} />
+            <Route path='/' element={<IndexContents />} />
+            <Route path='/search' element={<Search />} />
+            <Route path='/culturalspc' element={<CalturalSpc />} />
+            <Route path='/map' element={<Map />} />
+            <Route path='/recommends' element={<Recommends />} />
+            <Route path='/recent' element={<Recent />} />
           </Routes>
         </main>
         <Footer />
