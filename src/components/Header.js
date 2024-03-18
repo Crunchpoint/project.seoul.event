@@ -6,13 +6,13 @@ import { Link } from "react-router-dom";
 
 const Main = () => {
   return (
-    <header className="header">
-      <div className="header-container">
-        <div className="header-inner">
-          <h1 className="logo">
+    <header className='header'>
+      <div className='header-container'>
+        <div className='header-inner'>
+          <h1 className='logo'>
             <figure>
-              <Link to="/">
-                <img src="assets/images/logo4.png" alt="#" />
+              <Link to='/'>
+                <img src='%PUBLIC_URL%/assets/images/logo4.png' alt='#' />
               </Link>
             </figure>
           </h1>

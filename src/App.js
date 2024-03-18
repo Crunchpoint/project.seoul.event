@@ -1,4 +1,5 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+// import { HashRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import IndexContents from "./components/IndexContents";
 import Map from "./components/Map";
@@ -17,7 +18,8 @@ function App() {
   const { mainCont } = useContext(MyContext);
   // app
   return (
-    <HashRouter basename={process.env.PUBLIC_URL}>
+    // <HashRouter basename='/'>
+    <Router>
       <div className={mainCont ? "active bg-layer" : "bg-layer"}>
         <SideContents />
         <SideContentsR />
@@ -36,7 +38,8 @@ function App() {
         </main>
         <Footer />
       </div>
-    </HashRouter>
+    </Router>
+    // </HashRouter>
   );
 }
 

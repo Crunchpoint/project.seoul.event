@@ -3,7 +3,7 @@ import { throttle } from "lodash";
 import axios from "axios";
 
 const dataUrl = "https://ubuntu-server.kro.kr/culturalEventInfo";
-const dataUrl10 = "./assets/json/PlaceUrl.json";
+const dataUrl10 = process.env.PUBLIC_URL + "/assets/json/PlaceUrl.json";
 
 const infoFn = (state, action) => {
   switch (action.type) {
@@ -119,7 +119,7 @@ const Context = ({ children }) => {
             copy.splice(12, 0, replaceCate[0]);
             setCodenames(copy);
             // 코드네임2 데이터
-            storageData.data[1].map((obj) => {
+            storageData.data.map((obj) => {
               return subjCode.add("전체").add(obj.SUBJCODE);
             });
             let copy2 = [...subjCode];
@@ -154,15 +154,15 @@ const Context = ({ children }) => {
     setSearchedData(filteredData);
   }, [sortedData, search, data]);
   // 다중 검색 필터링 for data2
-  useEffect(() => {
-    const filteredData2 = data2.filter((item) => {
-      let categoryMatched = sortedData.category === "" || item.SUBJCODE.includes(sortedData.category);
-      let placeMatched = sortedData.place === "" || item.ADDR.includes(sortedData.place);
-      let textMatched = item.FAC_NAME.toUpperCase().includes(search.toUpperCase());
-      return categoryMatched && placeMatched && textMatched;
-    });
-    setSearchedData2(filteredData2);
-  }, [sortedData, search, data2]);
+  // useEffect(() => {
+  //   const filteredData2 = data2.filter((item) => {
+  //     let categoryMatched = sortedData.category === "" || item.SUBJCODE.includes(sortedData.category);
+  //     let placeMatched = sortedData.place === "" || item.ADDR.includes(sortedData.place);
+  //     let textMatched = item.FAC_NAME.toUpperCase().includes(search.toUpperCase());
+  //     return categoryMatched && placeMatched && textMatched;
+  //   });
+  //   setSearchedData2(filteredData2);
+  // }, [sortedData, search, data2]);
   // 스크롤 이밴트
   useEffect(() => {
     const handleScroll = throttle((event) => {
@@ -183,7 +183,7 @@ const Context = ({ children }) => {
   }, []);
   // 카카오 로그인
   const initKakao = async () => {
-    const jsKey = process.env.REACT_APP_KAKAO_KEY;
+    const jsKey = "007529e0340aa4c631e968fb9bdd2fdd";
     if (Kakao && !Kakao.isInitialized()) {
       await Kakao.init(jsKey);
       // console.log(`kakao 초기화 ${Kakao.isInitialized()}`);
