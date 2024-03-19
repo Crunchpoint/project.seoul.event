@@ -15,8 +15,8 @@ const SearchCate = ({ props }) => {
   filteredCodeNames.push(nameStorage);
 
   return (
-    <div className="search-cate">
-      <Swiper ref={swiperRef} modules={[]} spaceBetween={10} slidesPerView={"auto"} centeredSlides={false} className="mySwiper">
+    <div className='search-cate'>
+      <Swiper ref={swiperRef} modules={[]} spaceBetween={10} slidesPerView={"auto"} centeredSlides={false} className='mySwiper'>
         {filteredCodeNames[0]?.map((obj, key) => {
           return (
             <SwiperSlide key={key}>

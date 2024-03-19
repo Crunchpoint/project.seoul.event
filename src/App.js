@@ -1,4 +1,3 @@
-// import { HashRouter, Route, Routes } from "react-router-dom";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import IndexContents from "./components/IndexContents";
@@ -16,9 +15,8 @@ import "./css/_Style.scss";
 
 function App() {
   const { mainCont } = useContext(MyContext);
-  // app
+
   return (
-    // <HashRouter basename='/'>
     <Router>
       <div className={mainCont ? "active bg-layer" : "bg-layer"}>
         <SideContents />
@@ -34,12 +32,13 @@ function App() {
             <Route path='/map' element={<Map />} />
             <Route path='/recommends' element={<Recommends />} />
             <Route path='/recent' element={<Recent />} />
+            {/* Add a catch-all route for unmatched paths */}
+            <Route path='*' element={<IndexContents />} />
           </Routes>
         </main>
         <Footer />
       </div>
     </Router>
-    // </HashRouter>
   );
 }
 

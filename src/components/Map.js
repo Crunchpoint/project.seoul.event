@@ -143,7 +143,7 @@ const Map = () => {
 
     // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
     function addMarker(position, order) {
-      let imageSrc = "./assets/images/spritesheet2.jpg", // 마커 이미지 url, 스프라이트 이미지를 씁니다
+      let imageSrc = process.env.PUBLIC_URL + "/assets/images/spritesheet2.jpg", // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(27, 28), // 마커 이미지의 크기
         imgOptions = {
           spriteSize: new kakao.maps.Size(162, 27), // 스프라이트 이미지의 크기
@@ -241,36 +241,36 @@ const Map = () => {
   }, [latLon]);
 
   return (
-    <div className="map_wrap">
-      <div id="map"></div>
-      <ul id="category">
-        <li id="BK9" data-order="0">
-          <span className="category_bg bank"></span>
+    <div className='map_wrap'>
+      <div id='map'></div>
+      <ul id='category'>
+        <li id='BK9' data-order='0'>
+          <span className='category_bg bank'></span>
           은행
         </li>
-        <li id="PK6" data-order="1">
-          <span className="category_bg car-park"></span>
+        <li id='PK6' data-order='1'>
+          <span className='category_bg car-park'></span>
           주차장
         </li>
-        <li id="SW8" data-order="2">
-          <span className="category_bg train"></span>
+        <li id='SW8' data-order='2'>
+          <span className='category_bg train'></span>
           지하철
         </li>
-        <li id="FD6" data-order="3">
-          <span className="category_bg restaurant"></span>
+        <li id='FD6' data-order='3'>
+          <span className='category_bg restaurant'></span>
           식당
         </li>
-        <li id="CE7" data-order="4">
-          <span className="category_bg cafe"></span>
+        <li id='CE7' data-order='4'>
+          <span className='category_bg cafe'></span>
           카페
         </li>
-        <li id="CS2" data-order="5">
-          <span className="category_bg store"></span>
+        <li id='CS2' data-order='5'>
+          <span className='category_bg store'></span>
           편의점
         </li>
       </ul>
-      <div id="loc-btn">
-        <button id="btn-loc" />
+      <div id='loc-btn'>
+        <button id='btn-loc' />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ const infoFn = (state, action) => {
 };
 
 const Context = ({ children }) => {
+  // const imageUrl = pic_json;
   const { Kakao } = window;
   const newDate = new Date(),
     today = new Date(newDate.getTime() + (newDate.getTimezoneOffset() + 9 * 60) * 60000),
@@ -81,8 +82,10 @@ const Context = ({ children }) => {
   useEffect(() => {
     async function axiosData() {
       await axios
+        // .all([axios.get(dataUrl)])
         .all([axios.get(dataUrl), axios.get(dataUrl10)])
         .then(
+          // axios.spread((res1) => {
           axios.spread((res1, res10) => {
             // 로컬스토리지에 데이터 저장
             localStorage.setItem("storageData", JSON.stringify(res1));
@@ -119,7 +122,7 @@ const Context = ({ children }) => {
             copy.splice(12, 0, replaceCate[0]);
             setCodenames(copy);
             // 코드네임2 데이터
-            storageData.data.map((obj) => {
+            storageData.data[1].map((obj) => {
               return subjCode.add("전체").add(obj.SUBJCODE);
             });
             let copy2 = [...subjCode];
@@ -133,6 +136,7 @@ const Context = ({ children }) => {
             });
             // 장소 이미지 데이터
             setPlacePic(res10.data.data);
+            // setPlacePic(imageUrl.data);
           })
         )
         .catch((error) => {
@@ -154,15 +158,15 @@ const Context = ({ children }) => {
     setSearchedData(filteredData);
   }, [sortedData, search, data]);
   // 다중 검색 필터링 for data2
-  // useEffect(() => {
-  //   const filteredData2 = data2.filter((item) => {
-  //     let categoryMatched = sortedData.category === "" || item.SUBJCODE.includes(sortedData.category);
-  //     let placeMatched = sortedData.place === "" || item.ADDR.includes(sortedData.place);
-  //     let textMatched = item.FAC_NAME.toUpperCase().includes(search.toUpperCase());
-  //     return categoryMatched && placeMatched && textMatched;
-  //   });
-  //   setSearchedData2(filteredData2);
-  // }, [sortedData, search, data2]);
+  useEffect(() => {
+    const filteredData2 = data2.filter((item) => {
+      let categoryMatched = sortedData.category === "" || item.SUBJCODE.includes(sortedData.category);
+      let placeMatched = sortedData.place === "" || item.ADDR.includes(sortedData.place);
+      let textMatched = item.FAC_NAME.toUpperCase().includes(search.toUpperCase());
+      return categoryMatched && placeMatched && textMatched;
+    });
+    setSearchedData2(filteredData2);
+  }, [sortedData, search, data2]);
   // 스크롤 이밴트
   useEffect(() => {
     const handleScroll = throttle((event) => {
